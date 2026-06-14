@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MSquare Hardwares — Precision In Every Detail</title>
+<meta name="description" content="MSquare Hardwares — premium furniture hardware & interior solutions based in Mumbai." />
+
+<!-- Google Fonts: Cormorant Garamond (headings) + Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #F5EFE6;          /* warm cream */
+    --gold: #8B6914;        /* deep bronze-gold */
+    --gold-light: #C4A35A;  /* light gold */
+    --text: #3D2B0E;        /* dark brown */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Subtle linen / noise texture layered over the cream background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    /* fine fabric weave */
+    background-image:
+      repeating-linear-gradient(45deg, rgba(139,105,20,0.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(-45deg, rgba(139,105,20,0.025) 0 1px, transparent 1px 3px);
+    background-size: 4px 4px, 4px 4px;
+  }
+  /* Soft grain on top of the weave */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------------- NAVBAR ---------------- */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6vw;
+    background: rgba(245, 239, 230, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139, 105, 20, 0.35);
+    opacity: 0;                 /* hidden until GSAP reveals it */
+    transform: translateY(-100%);
+    will-change: opacity, transform;
+  }
+
+  .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .navbar__brand svg { width: 34px; height: 34px; display: block; }
+  .navbar__brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    list-style: none;
+  }
+  .navbar__links a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.25s ease;
+  }
+  .navbar__links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 0; height: 1.5px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .navbar__links a:hover { color: var(--gold); }
+  .navbar__links a:hover::after { width: 100%; }
+
+  .navbar__toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 6px;
+  }
+  .navbar__toggle span {
+    width: 24px; height: 2px;
+    background: var(--gold);
+    display: block;
+    transition: 0.3s ease;
+  }
+
+  /* ---------------- HERO ---------------- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Logo mark */
+  .hero__logo {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .hero__logo svg { width: 100%; height: 100%; display: block; }
+
+  .hero__brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 1.04;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-top: 26px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .hero__brand .accent { color: var(--gold); }
+
+  .hero__tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.05rem, 3vw, 1.7rem);
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-top: 14px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .hero__line {
+    width: 220px;
+    max-width: 60vw;
+    height: 1.5px;
+    margin-top: 26px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Scroll cue */
+  .hero__scroll {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    will-change: opacity;
+  }
+  .hero__scroll-text {
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .hero__scroll-arrow {
+    width: 22px; height: 22px;
+    border-right: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: rotate(45deg);
+    animation: bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+    50%      { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+  }
+
+  /* ---------------- PLACEHOLDER SECTIONS ---------------- */
+  .section {
+    position: relative;
+    z-index: 1;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 6vw;
+    border-top: 1px solid rgba(139, 105, 20, 0.15);
+  }
+  .section__eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .section__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .section__text {
+    max-width: 560px;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(61, 43, 14, 0.7);
+  }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 720px) {
+    .navbar { padding: 14px 6vw; }
+    .navbar__links {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh;
+      width: min(72vw, 300px);
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      background: rgba(245, 239, 230, 0.96);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-left: 1px solid rgba(139, 105, 20, 0.3);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .navbar__links.open { transform: translateX(0); }
+    .navbar__toggle { display: flex; z-index: 60; }
+    .hero__logo { width: 112px; height: 112px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" aria-label="Primary">
+    <a class="navbar__brand" href="#top" aria-label="MSquare Hardwares home">
+      <!-- compact mark -->
+      <svg viewBox="0 0 300 300" role="img" aria-hidden="true">
+        <use href="#msquare-mark" />
+      </svg>
+      <span class="navbar__brand-name">MSquare Hardwares</span>
+    </a>
+
+    <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="navbar__links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <div class="hero__inner">
+
+      <!-- Logo mark (geometric diamond + chevron bars, gold) -->
+      <div class="hero__logo" id="heroLogo">
+        <svg viewBox="0 0 300 300" role="img" aria-label="MSquare logo mark">
+          <!-- Reusable definition of the brand mark -->
+          <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"  stop-color="#C4A35A" />
+              <stop offset="45%" stop-color="#A8842B" />
+              <stop offset="100%" stop-color="#8B6914" />
+            </linearGradient>
+
+            <g id="msquare-mark"
+               fill="none"
+               stroke="url(#goldGrad)"
+               stroke-width="11"
+               stroke-linejoin="round"
+               stroke-linecap="round">
+              <!-- Outer hexagonal silhouette -->
+              <path d="M150 26 L262 90 L262 210 L150 274 L38 210 L38 90 Z" opacity="0.32" />
+              <!-- Left diamond (outer) -->
+              <path d="M104 70 L150 150 L104 230 L58 150 Z" />
+              <!-- Left diamond (inner) -->
+              <path d="M104 116 L128 150 L104 184 L80 150 Z" stroke-width="9" />
+              <!-- Three diagonal chevron bars (the 'square' motif) -->
+              <path d="M150 196 L196 116" stroke-width="13" />
+              <path d="M186 214 L232 134" stroke-width="13" />
+              <path d="M150 92  L242 92"  stroke-width="13" opacity="0.9" />
+            </g>
+          </defs>
+          <use href="#msquare-mark" />
+        </svg>
+      </div>
+
+      <h1 class="hero__brand" id="heroBrand">M<span class="accent">Square</span> Hardwares</h1>
+
+      <p class="hero__tagline" id="heroTagline">Precision In Every Detail.</p>
+
+      <div class="hero__line" id="heroLine" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero__scroll" id="heroScroll" aria-hidden="true">
+      <span class="hero__scroll-text">Scroll</span>
+      <span class="hero__scroll-arrow"></span>
+    </div>
+  </header>
+
+  <!-- ===================== PLACEHOLDER SECTIONS ===================== -->
+  <section class="section" id="about">
+    <p class="section__eyebrow">Who We Are</p>
+    <h2 class="section__title">About MSquare</h2>
+    <p class="section__text">Coming soon — the story of MSquare Hardwares, Mumbai's destination for premium furniture hardware &amp; interior solutions.</p>
+  </section>
+
+  <section class="section" id="products">
+    <p class="section__eyebrow">What We Offer</p>
+    <h2 class="section__title">Products</h2>
+    <p class="section__text">Coming soon — a curated catalogue of handles, hinges, sliding systems, and finishing hardware.</p>
+  </section>
+
+  <section class="section" id="gallery">
+    <p class="section__eyebrow">Our Work</p>
+    <h2 class="section__title">Gallery</h2>
+    <p class="section__text">Coming soon — a showcase of interiors brought to life with MSquare precision.</p>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="section__eyebrow">Get In Touch</p>
+    <h2 class="section__title">Contact</h2>
+    <p class="section__text">Coming soon — reach out to visit our Mumbai showroom and speak with our specialists.</p>
+  </section>
+
+  <!-- ===================== GSAP ===================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const logo    = document.getElementById('heroLogo');
+      const brand   = document.getElementById('heroBrand');
+      const tagline = document.getElementById('heroTagline');
+      const line    = document.getElementById('heroLine');
+      const scroll  = document.getElementById('heroScroll');
+      const navbar  = document.getElementById('navbar');
+
+      if (reduceMotion) {
+        gsap.set([logo, brand, tagline, scroll], { opacity: 1, y: 0 });
+        gsap.set(line, { scaleX: 1 });
+        gsap.set(navbar, { opacity: 1, y: 0 });
+        return;
+      }
+
+      // Start logo slightly lower & centered, then lift it into place
+      gsap.set(logo, { y: 40, scale: 0.92 });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      // 1. Logo fades in at center
+      tl.to(logo, { opacity: 1, scale: 1, duration: 1.1 })
+        // brief pause
+        .to({}, { duration: 0.45 })
+        // 2. Logo smoothly animates upward to final position
+        .to(logo, { y: 0, duration: 1.0, ease: 'power2.inOut' })
+        // 3. Brand name fades in bold below the logo
+        .to(brand, { opacity: 1, y: 0, duration: 0.9 }, '-=0.35')
+        // initialize brand from below
+        .from(brand, { y: 26, duration: 0.9, ease: 'power3.out' }, '<')
+        // 4. Tagline slides up softly
+        .to(tagline, { opacity: 1, duration: 0.8 }, '-=0.4')
+        .from(tagline, { y: 22, duration: 0.8, ease: 'power3.out' }, '<')
+        // 5. Gold line draws itself
+        .to(line, { scaleX: 1, duration: 0.9, ease: 'power2.inOut' }, '-=0.3')
+        // 6. Scroll cue fades in
+        .to(scroll, { opacity: 1, duration: 0.7 }, '-=0.2')
+        // 7. Navbar fades in from the top once the hero animation finishes
+        .to(navbar, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.1');
+    });
+
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function () {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>
