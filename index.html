@@ -411,11 +411,84 @@
   .pcard__spec { margin-top: 5px; font-size: 0.73rem; line-height: 1.45; color: rgba(61,43,14,0.62); flex: 1; }
   .pcard__wa {
     margin-top: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    width: 100%; border: none; cursor: pointer; font-family: inherit;
     text-decoration: none; font-size: 0.74rem; font-weight: 600; letter-spacing: .3px; color: #fff;
-    background: #1faf54; border-radius: 999px; padding: 9px 12px; transition: background .25s ease;
+    background: #1faf54; border-radius: 999px; padding: 10px 12px; transition: background .25s ease;
   }
   .pcard__wa:hover { background: #178f44; }
   .pcard__wa svg { width: 15px; height: 15px; fill: #fff; }
+
+  /* ---------- contact ---------- */
+  .contact__grid {
+    width: 100%; max-width: 980px; margin: 42px auto 0; text-align: left;
+    display: grid; gap: 26px; grid-template-columns: 1.05fr 0.95fr;
+  }
+  .contact__owners { display: grid; gap: 18px; align-content: start; }
+  .owner {
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 14px; padding: 22px 22px;
+  }
+  .owner__name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.3rem; color: var(--text); }
+  .owner__role { font-size: 0.64rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-top: 3px; }
+  .owner__phone { margin-top: 12px; font-size: 1.02rem; color: var(--text); letter-spacing: .4px; }
+  .owner__actions { display: flex; gap: 10px; margin-top: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none; cursor: pointer;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: .4px; padding: 9px 16px;
+    border-radius: 999px; border: 1px solid transparent; transition: background .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .btn--wa { background: #1faf54; color: #fff; }
+  .btn--wa:hover { background: #178f44; }
+  .btn--call { background: transparent; color: var(--text); border-color: rgba(139,105,20,0.35); }
+  .btn--call:hover { background: rgba(196,163,90,0.14); border-color: var(--gold); }
+  .contact__info { list-style: none; display: flex; flex-direction: column; gap: 20px; padding: 4px 0; }
+  .contact__info li { display: block; }
+  .contact__label { display: block; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; font-weight: 600; }
+  .contact__info a, .contact__value { color: var(--text); text-decoration: none; line-height: 1.5; }
+  .contact__info a { border-bottom: 1px solid rgba(139,105,20,0.3); }
+  .contact__info a:hover { color: var(--gold); }
+
+  /* ---------- enquiry modal (choose owner) ---------- */
+  .enq { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .enq[hidden] { display: none; }
+  .enq__backdrop { position: absolute; inset: 0; background: rgba(26,16,6,0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity .22s ease; }
+  .enq.open .enq__backdrop { opacity: 1; }
+  .enq__box {
+    position: relative; z-index: 1; width: 100%; max-width: 420px;
+    background: var(--bg); border: 1px solid rgba(139,105,20,0.3); border-radius: 18px;
+    padding: 30px 26px 26px; text-align: center;
+    box-shadow: 0 30px 70px -30px rgba(26,16,6,0.6);
+    transform: translateY(16px) scale(0.97); opacity: 0; transition: transform .24s cubic-bezier(.2,.7,.2,1), opacity .24s ease;
+  }
+  .enq.open .enq__box { transform: none; opacity: 1; }
+  .enq__x { position: absolute; top: 12px; right: 14px; background: none; border: none; cursor: pointer; font-size: 1.5rem; line-height: 1; color: rgba(61,43,14,0.6); }
+  .enq__x:hover { color: var(--gold); }
+  .enq__eyebrow { font-size: 0.64rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .enq__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.4rem; color: var(--text); margin-top: 8px; }
+  .enq__product { margin-top: 6px; font-size: 0.86rem; color: rgba(61,43,14,0.7); font-style: italic; min-height: 1em; }
+  .enq__opts { display: grid; gap: 12px; margin-top: 22px; }
+  .enq__opt {
+    display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none;
+    background: #1faf54; color: #fff; border-radius: 12px; padding: 13px 16px; transition: background .25s ease, transform .2s ease;
+  }
+  .enq__opt:hover { background: #178f44; transform: translateY(-2px); }
+  .enq__optname { font-weight: 600; font-size: 0.98rem; }
+  .enq__optnum { font-size: 0.78rem; opacity: 0.9; letter-spacing: .5px; }
+
+  /* ---------- footer ---------- */
+  .footer {
+    position: relative; z-index: 1; border-top: 1px solid rgba(139,105,20,0.2);
+    padding: 46px 6vw 40px; text-align: center;
+  }
+  .footer__brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.5rem; color: var(--text); }
+  .footer__brand .accent { color: var(--gold); }
+  .footer__tag { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); margin-top: 4px; }
+  .footer__line { max-width: 620px; margin: 16px auto 0; font-size: 0.86rem; line-height: 1.7; color: rgba(61,43,14,0.7); }
+  .footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 18px; }
+  .footer__links a { color: var(--text); text-decoration: none; font-size: 0.84rem; border-bottom: 1px solid rgba(139,105,20,0.3); }
+  .footer__links a:hover { color: var(--gold); }
+  .footer__copy { margin-top: 22px; font-size: 0.72rem; letter-spacing: .5px; color: rgba(61,43,14,0.55); }
 
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width: 720px) {
@@ -449,6 +522,7 @@
     .subtile__title { font-size: 1.04rem; }
     .cat__products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
     .pcard__name { font-size: 0.96rem; }
+    .contact__grid { grid-template-columns: 1fr; gap: 20px; }
   }
 </style>
 </head>
@@ -503,7 +577,7 @@
   <section class="section" id="about">
     <p class="section__eyebrow">Who We Are</p>
     <h2 class="section__title">About MSquare</h2>
-    <p class="section__text">Coming soon — the story of MSquare Hardwares, Mumbai's destination for premium furniture hardware &amp; interior solutions.</p>
+    <p class="section__text">MSquare Hardwares is Mumbai's destination for premium furniture hardware &amp; interior solutions. Founded by Mehlam Ratlam and Mustafa Indore, we bring precision, quality and a curated range of fittings and locks to homes, kitchens and interiors — guided by a single principle: precision in every detail.</p>
   </section>
 
   <section class="catalog" id="products">
@@ -536,8 +610,83 @@
   <section class="section" id="contact">
     <p class="section__eyebrow">Get In Touch</p>
     <h2 class="section__title">Contact</h2>
-    <p class="section__text">Coming soon — reach out to visit our Mumbai showroom and speak with our specialists.</p>
+    <p class="section__text">Visit our Mumbai showroom or reach out to our co-founders directly — we're happy to help with product enquiries, pricing and bulk orders.</p>
+
+    <div class="contact__grid">
+      <div class="contact__owners">
+        <article class="owner">
+          <h3 class="owner__name">Mehlam Ratlam</h3>
+          <p class="owner__role">Co-Founder</p>
+          <p class="owner__phone">+91 84540 06602</p>
+          <div class="owner__actions">
+            <a class="btn btn--wa" target="_blank" rel="noopener" href="https://wa.me/918454006602?text=Hi%20MSquare%2C%20I%27d%20like%20to%20enquire%20about%20your%20products.">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8z"/></svg>WhatsApp</a>
+            <a class="btn btn--call" href="tel:+918454006602">Call</a>
+          </div>
+        </article>
+        <article class="owner">
+          <h3 class="owner__name">Mustafa Indore</h3>
+          <p class="owner__role">Co-Founder</p>
+          <p class="owner__phone">+91 91375 98521</p>
+          <div class="owner__actions">
+            <a class="btn btn--wa" target="_blank" rel="noopener" href="https://wa.me/919137598521?text=Hi%20MSquare%2C%20I%27d%20like%20to%20enquire%20about%20your%20products.">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8z"/></svg>WhatsApp</a>
+            <a class="btn btn--call" href="tel:+919137598521">Call</a>
+          </div>
+        </article>
+      </div>
+
+      <ul class="contact__info">
+        <li>
+          <span class="contact__label">Email</span>
+          <a href="mailto:Msquarehardwares@gmail.com">Msquarehardwares@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact__label">Showroom</span>
+          <a href="https://maps.google.com/?q=Al-Nasr%20Tower%2C%20S106%2C%20Bhendi%20Bazar%2C%20Mumbai%20400003" target="_blank" rel="noopener">Al-Nasr Tower, S106, Second Floor,<br />Bhendi Bazar, Mumbai 400003</a>
+        </li>
+        <li>
+          <span class="contact__label">Instagram</span>
+          <a href="https://instagram.com/msquarehardwares" target="_blank" rel="noopener">@msquarehardwares</a>
+        </li>
+      </ul>
+    </div>
   </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p class="footer__brand">M<span class="accent">Square</span> Hardwares</p>
+    <p class="footer__tag">Precision In Every Detail.</p>
+    <p class="footer__line">Premium Furniture Hardware &amp; Interior Solutions · Al-Nasr Tower, S106, Second Floor, Bhendi Bazar, Mumbai 400003</p>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="tel:+918454006602">+91 84540 06602</a>
+      <a href="tel:+919137598521">+91 91375 98521</a>
+      <a href="mailto:Msquarehardwares@gmail.com">Msquarehardwares@gmail.com</a>
+      <a href="https://instagram.com/msquarehardwares" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <p class="footer__copy">© <span id="footYear">2026</span> MSquare Hardwares. All rights reserved.</p>
+  </footer>
+
+  <!-- ===================== ENQUIRY MODAL (choose co-founder) ===================== -->
+  <div class="enq" id="enqModal" hidden>
+    <div class="enq__backdrop" data-enq-close></div>
+    <div class="enq__box" role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+      <button class="enq__x" type="button" data-enq-close aria-label="Close">&times;</button>
+      <p class="enq__eyebrow">Enquire on WhatsApp</p>
+      <h3 class="enq__title" id="enqTitle">Chat with a co-founder</h3>
+      <p class="enq__product" id="enqProduct"></p>
+      <div class="enq__opts">
+        <a class="enq__opt" id="enqA" target="_blank" rel="noopener" data-enq-go>
+          <span class="enq__optname">Mehlam Ratlam</span>
+          <span class="enq__optnum">+91 84540 06602</span>
+        </a>
+        <a class="enq__opt" id="enqB" target="_blank" rel="noopener" data-enq-go>
+          <span class="enq__optname">Mustafa Indore</span>
+          <span class="enq__optnum">+91 91375 98521</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ===================== GSAP ===================== -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -765,19 +914,46 @@
       DATA.forEach(c => c.subs.forEach(s => s.products.forEach(p => ALL.push({ name: p.name, spec: p.spec, img: p.img }))));
 
       // ---- helpers ----
-      const WA = 'https://wa.me/918454006602';
-      const waSvg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5z"/></svg>';
+      const waSvg ='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5z"/></svg>';
       const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-      const waLink = name => WA + '?text=' + encodeURIComponent('Hi MSquare, I would like to enquire about: ' + name);
       function productCard(p) {
         return '<article class="pcard">'
           + '<div class="pcard__img"><img loading="lazy" src="' + p.img + '" alt="' + esc(p.name) + '" /></div>'
           + '<div class="pcard__body">'
           + '<h4 class="pcard__name">' + esc(p.name) + '</h4>'
           + '<p class="pcard__spec">' + esc(p.spec) + '</p>'
-          + '<a class="pcard__wa" target="_blank" rel="noopener" href="' + waLink(p.name) + '">' + waSvg + 'Enquire on WhatsApp</a>'
+          + '<button type="button" class="pcard__wa" data-name="' + esc(p.name) + '">' + waSvg + 'Enquire on WhatsApp</button>'
           + '</div></article>';
       }
+
+      // ---- enquiry modal: choose which co-founder to WhatsApp ----
+      const OWNERS = { a: '918454006602', b: '919137598521' };
+      const modal     = document.getElementById('enqModal');
+      const enqProduct = document.getElementById('enqProduct');
+      const enqA = document.getElementById('enqA');
+      const enqB = document.getElementById('enqB');
+      function waTo(num, name) {
+        const msg = name ? 'Hi MSquare, I would like to enquire about: ' + name : 'Hi MSquare, I would like to enquire about your products.';
+        return 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+      }
+      function openEnq(name) {
+        enqProduct.textContent = name ? '“' + name + '”' : '';
+        enqA.href = waTo(OWNERS.a, name);
+        enqB.href = waTo(OWNERS.b, name);
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => modal.classList.add('open'));
+      }
+      function closeEnq() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => { modal.hidden = true; }, 240);
+      }
+      modal.addEventListener('click', e => {
+        if (e.target.hasAttribute('data-enq-close')) closeEnq();
+        if (e.target.closest('[data-enq-go]')) closeEnq();
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeEnq(); });
 
       // ---- state + render ----
       const state = { level: 0, ci: null, si: null, q: '' };
@@ -844,6 +1020,8 @@
 
       // ---- events ----
       stage.addEventListener('click', e => {
+        const wa = e.target.closest('.pcard__wa');
+        if (wa) { openEnq(wa.dataset.name); return; }
         const big = e.target.closest('.bigcard');
         if (big) { state.level = 1; state.ci = +big.dataset.ci; state.si = null; render(); scrollToTop(); return; }
         const tile = e.target.closest('.subtile');
@@ -866,6 +1044,9 @@
         clearTimeout(timer);
         timer = setTimeout(() => { state.q = searchEl.value.trim(); render(); }, 120);
       });
+
+      const fy = document.getElementById('footYear');
+      if (fy) fy.textContent = new Date().getFullYear();
 
       render();
     })();
