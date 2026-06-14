@@ -331,22 +331,33 @@
               <stop offset="100%" stop-color="#8B6914" />
             </linearGradient>
 
-            <g id="msquare-mark"
-               fill="none"
-               stroke="url(#goldGrad)"
-               stroke-width="11"
-               stroke-linejoin="round"
-               stroke-linecap="round">
-              <!-- Outer hexagonal silhouette -->
-              <path d="M150 26 L262 90 L262 210 L150 274 L38 210 L38 90 Z" opacity="0.32" />
-              <!-- Left diamond (outer) -->
-              <path d="M104 70 L150 150 L104 230 L58 150 Z" />
-              <!-- Left diamond (inner) -->
-              <path d="M104 116 L128 150 L104 184 L80 150 Z" stroke-width="9" />
-              <!-- Three diagonal chevron bars (the 'square' motif) -->
-              <path d="M150 196 L196 116" stroke-width="13" />
-              <path d="M186 214 L232 134" stroke-width="13" />
-              <path d="M150 92  L242 92"  stroke-width="13" opacity="0.9" />
+            <!-- MSquare mark: isometric brass cube — 3 slats (top), nested diamond (left), 2 slats (right) -->
+            <g id="msquare-mark" stroke-linejoin="round" stroke-linecap="round">
+              <!-- faint cube silhouette + inner ridges -->
+              <g fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.28">
+                <path d="M150.0 52.0 L235.0 101.0 L235.0 199.0 L150.0 248.0 L65.0 199.0 L65.0 101.0 Z" />
+                <path d="M150.0 52.0 L150.0 150.0" />
+                <path d="M150.0 150.0 L65.0 199.0" />
+                <path d="M150.0 150.0 L235.0 199.0" />
+              </g>
+
+              <!-- brass slats: filled gold with a subtle darker edge -->
+              <g fill="url(#goldGrad)" stroke="#6E520F" stroke-width="2">
+                <!-- TOP face: three slats -->
+                <path d="M88.0 100.5 L105.0 90.7 L167.9 127.0 L150.9 136.8 Z" />
+                <path d="M110.0 87.8 L127.0 78.0 L189.9 114.2 L172.9 124.0 Z" />
+                <path d="M132.2 75.0 L149.2 65.2 L212.1 101.5 L195.1 111.3 Z" />
+                <!-- RIGHT face: two slats -->
+                <path d="M167.8 153.4 L186.6 142.7 L186.6 213.2 L167.8 224.0 Z" />
+                <path d="M200.2 134.8 L218.8 124.0 L218.8 194.6 L200.2 205.4 Z" />
+              </g>
+
+              <!-- LEFT face: nested diamond — gold frame with a floating core -->
+              <path fill="url(#goldGrad)" stroke="#6E520F" stroke-width="2" fill-rule="evenodd"
+                    d="M107.5 135.3 L136.4 191.2 L107.5 213.7 L78.6 157.8 Z
+                       M107.5 147.6 L127.5 186.0 L107.5 201.4 L87.5 163.0 Z" />
+              <path fill="url(#goldGrad)" stroke="#6E520F" stroke-width="1.5"
+                    d="M107.5 161.8 L116.8 179.9 L107.5 187.2 L98.2 169.1 Z" />
             </g>
           </defs>
           <use href="#msquare-mark" />
