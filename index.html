@@ -58,24 +58,6 @@
   }
 
   /* ---------------- AMBIENT INTERACTIVE LAYERS ---------------- */
-  /* warm gold spotlight that follows the cursor */
-  .spotlight {
-    position: fixed;
-    top: 0; left: 0;
-    width: 620px; height: 620px;
-    margin: -310px 0 0 -310px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(circle,
-      rgba(196, 163, 90, 0.22) 0%,
-      rgba(196, 163, 90, 0.10) 35%,
-      rgba(196, 163, 90, 0) 68%);
-    mix-blend-mode: multiply;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    will-change: transform;
-  }
   /* floating gold-dust particles */
   #dust {
     position: fixed;
@@ -359,7 +341,6 @@
 
   <!-- ambient interactive layers -->
   <canvas id="dust" aria-hidden="true"></canvas>
-  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
   <!-- ===================== NAVBAR ===================== -->
   <nav class="navbar" id="navbar" aria-label="Primary">
@@ -562,19 +543,7 @@
         })();
       }
 
-      /* ---- 2. Warm gold spotlight following pointer (mouse or touch) ---- */
-      const spot = document.getElementById('spotlight');
-      if (spot && !reduce) {
-        let rx = px, ry = py;
-        window.addEventListener('pointermove', function () { spot.style.opacity = '1'; }, { passive: true });
-        (function move() {
-          rx += (px - rx) * 0.15; ry += (py - ry) * 0.15;
-          spot.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
-          requestAnimationFrame(move);
-        })();
-      }
-
-      /* ---- 3. Floating gold dust (all devices) ---- */
+      /* ---- 2. Floating gold dust (all devices) ---- */
       const canvas = document.getElementById('dust');
       if (canvas && !reduce) {
         const ctx = canvas.getContext('2d');
