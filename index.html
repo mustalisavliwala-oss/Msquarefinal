@@ -302,155 +302,6 @@
     color: rgba(61, 43, 14, 0.7);
   }
 
-  /* ---------------- SHOWROOM (cinematic scroll) ---------------- */
-  .showroom {
-    position: relative;
-    z-index: 1;
-    height: 100vh;
-    height: 100svh;
-    overflow: hidden;
-    background: #161009;
-  }
-  .showroom__stage {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    perspective: 1300px;
-  }
-  /* the photoreal showroom render — pushes in toward the doorway on scroll */
-  .showroom__scene {
-    position: absolute;
-    inset: -2%;
-    width: 104%;
-    height: 104%;
-    background: url("showroom.png") 50% 40% / cover no-repeat;
-    transform-origin: 50% 44%;
-    transform: scale(1.05);
-    filter: brightness(0.9) saturate(0.95);
-    will-change: transform, filter;
-  }
-  /* two translucent glass doors that part from the centre seam */
-  .showroom__door {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 52%;
-    z-index: 2;
-    pointer-events: none;
-    will-change: transform, opacity;
-  }
-  .showroom__door--l {
-    left: -2%;
-    transform-origin: left center;
-    background: linear-gradient(100deg,
-      rgba(255,255,255,0) 28%,
-      rgba(255,253,245,0.10) 70%,
-      rgba(255,250,236,0.22) 100%);
-    border-right: 1.5px solid rgba(196,163,90,0.55);
-    box-shadow: inset -22px 0 46px -22px rgba(255,250,236,0.55);
-  }
-  .showroom__door--r {
-    right: -2%;
-    transform-origin: right center;
-    background: linear-gradient(-100deg,
-      rgba(255,255,255,0) 28%,
-      rgba(255,253,245,0.10) 70%,
-      rgba(255,250,236,0.22) 100%);
-    border-left: 1.5px solid rgba(196,163,90,0.55);
-    box-shadow: inset 22px 0 46px -22px rgba(255,250,236,0.55);
-  }
-  /* entrance vignette that opens up as we step inside */
-  .showroom__vignette {
-    position: absolute; inset: 0; z-index: 3;
-    pointer-events: none;
-    background: radial-gradient(122% 92% at 50% 44%,
-      transparent 36%, rgba(18,11,2,0.42) 76%, rgba(11,7,0,0.72) 100%);
-    will-change: opacity;
-  }
-  /* a single light sweep across the glass */
-  .showroom__glint {
-    position: absolute; inset: -30% -12%; z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(115deg,
-      rgba(255,250,236,0) 44%, rgba(255,253,243,0.55) 50%, rgba(255,250,236,0) 56%);
-    background-size: 250% 250%;
-    background-position: 160% 160%;
-    mix-blend-mode: screen;
-    opacity: 0;
-    will-change: background-position, opacity;
-  }
-  /* intro caption (fades as you enter) */
-  .showroom__caption {
-    position: absolute;
-    left: 0; right: 0; top: 15%;
-    z-index: 4;
-    text-align: center;
-    pointer-events: none;
-    will-change: opacity, transform;
-  }
-  .showroom__eyebrow {
-    font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold-light); font-weight: 600;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.7);
-  }
-  .showroom__title {
-    font-family: 'Cormorant Garamond', serif; font-weight: 700;
-    font-size: clamp(2rem, 6vw, 3.7rem);
-    color: #fff6e6; margin-top: 10px;
-    text-shadow: 0 6px 26px rgba(0,0,0,0.7);
-  }
-  /* product callouts revealed once "inside" */
-  .showroom__hotspot {
-    position: absolute; z-index: 5;
-    opacity: 0;
-    will-change: opacity, transform;
-  }
-  .showroom__dot {
-    position: relative;
-    width: 11px; height: 11px; border-radius: 50%;
-    background: var(--gold-light);
-    box-shadow: 0 0 0 4px rgba(196,163,90,0.22), 0 0 16px rgba(196,163,90,0.9);
-  }
-  .showroom__dot::after {
-    content: ""; position: absolute; inset: -4px; border-radius: 50%;
-    border: 1px solid rgba(196,163,90,0.6);
-    animation: hsPulse 2.2s ease-out infinite;
-  }
-  @keyframes hsPulse {
-    0%   { transform: scale(0.6); opacity: 0.9; }
-    100% { transform: scale(2.3); opacity: 0; }
-  }
-  .showroom__label {
-    position: absolute; left: 22px; top: -12px; white-space: nowrap;
-    background: rgba(245,239,230,0.93);
-    border: 1px solid rgba(139,105,20,0.4);
-    border-radius: 9px; padding: 7px 13px;
-    box-shadow: 0 12px 32px -14px rgba(0,0,0,0.6);
-    -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
-  }
-  .showroom__label::before {
-    content: ""; position: absolute; left: -18px; top: 15px;
-    width: 18px; height: 1px; background: rgba(139,105,20,0.6);
-  }
-  .showroom__label b {
-    display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 1rem; color: var(--text); letter-spacing: 0.3px;
-  }
-  .showroom__label span {
-    display: block; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--gold); margin-top: 2px;
-  }
-  .showroom__hotspot--left .showroom__label { left: auto; right: 22px; text-align: right; }
-  .showroom__hotspot--left .showroom__label::before { left: auto; right: -18px; }
-  /* scroll cue for the showroom */
-  .showroom__cue {
-    position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
-    z-index: 4;
-    font-size: 0.6rem; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--gold-light); opacity: 0.85;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
-    will-change: opacity;
-  }
-
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width: 720px) {
     .navbar { padding: 14px 6vw; }
@@ -474,10 +325,6 @@
     .hero__logo { width: 112px; height: 112px; }
     .hero__brand { margin-top: 30px; }
     .hero__tagline { margin-top: 32px; }
-
-    .showroom__label b { font-size: 0.86rem; }
-    .showroom__label span { font-size: 0.56rem; }
-    .showroom__caption { top: 13%; }
   }
 </style>
 </head>
@@ -527,41 +374,6 @@
       <span class="hero__scroll-arrow"></span>
     </div>
   </header>
-
-  <!-- ===================== SHOWROOM (cinematic scroll) ===================== -->
-  <section class="showroom" id="showroom" aria-label="Step inside the MSquare showroom">
-    <div class="showroom__stage" id="showroomStage">
-      <div class="showroom__scene" aria-hidden="true"></div>
-
-      <!-- glass doors that part from the centre -->
-      <div class="showroom__door showroom__door--l" aria-hidden="true"></div>
-      <div class="showroom__door showroom__door--r" aria-hidden="true"></div>
-
-      <div class="showroom__vignette" aria-hidden="true"></div>
-      <div class="showroom__glint" aria-hidden="true"></div>
-
-      <div class="showroom__caption">
-        <p class="showroom__eyebrow">Step Inside</p>
-        <h2 class="showroom__title">The MSquare Showroom</h2>
-      </div>
-
-      <!-- product callouts on the display pedestals -->
-      <div class="showroom__hotspot" style="left:29%; top:63%;">
-        <span class="showroom__dot"></span>
-        <span class="showroom__label"><b>Brass Lever Handles</b><span>Premium Hardware</span></span>
-      </div>
-      <div class="showroom__hotspot" style="left:49%; top:72%;">
-        <span class="showroom__dot"></span>
-        <span class="showroom__label"><b>Soft-Close Hinges</b><span>Precision Mechanism</span></span>
-      </div>
-      <div class="showroom__hotspot showroom__hotspot--left" style="left:67%; top:53%;">
-        <span class="showroom__dot"></span>
-        <span class="showroom__label"><b>Sliding Systems</b><span>Interior Solutions</span></span>
-      </div>
-
-      <p class="showroom__cue">Scroll to enter</p>
-    </div>
-  </section>
 
   <!-- ===================== PLACEHOLDER SECTIONS ===================== -->
   <section class="section" id="about">
@@ -739,64 +551,6 @@
           });
         });
       }
-    })();
-
-    /* ============ ENTER THE SHOWROOM (cinematic scroll) ============ */
-    (function () {
-      const stage = document.getElementById('showroomStage');
-      if (!stage || !window.gsap || !window.ScrollTrigger) return;
-
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const scene = stage.querySelector('.showroom__scene');
-      const doorL = stage.querySelector('.showroom__door--l');
-      const doorR = stage.querySelector('.showroom__door--r');
-      const vign  = stage.querySelector('.showroom__vignette');
-      const glint = stage.querySelector('.showroom__glint');
-      const cap   = stage.querySelector('.showroom__caption');
-      const cue   = stage.querySelector('.showroom__cue');
-      const spots = stage.querySelectorAll('.showroom__hotspot');
-
-      // Reduced motion: settle on a clean "inside" frame with callouts visible.
-      if (reduce) {
-        gsap.set(scene, { scale: 1.12, filter: 'brightness(1.04) saturate(1.04)' });
-        gsap.set([doorL, doorR], { opacity: 0 });
-        gsap.set(vign, { opacity: 0.3 });
-        gsap.set([cap, cue], { opacity: 0 });
-        gsap.set(spots, { opacity: 1, y: 0 });
-        return;
-      }
-
-      gsap.set(spots, { y: 18 });
-
-      const tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: '.showroom',
-          start: 'top top',
-          end: '+=160%',
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1
-        }
-      });
-
-      // camera pushes forward into the showroom
-      tl.to(scene, { scale: 1.4, filter: 'brightness(1.06) saturate(1.06)', duration: 1 }, 0)
-        // glass doors part from the centre
-        .to(doorL, { xPercent: -110, rotationY: 24, opacity: 0, duration: 0.55 }, 0.05)
-        .to(doorR, { xPercent: 110, rotationY: -24, opacity: 0, duration: 0.55 }, 0.05)
-        // intro caption + cue fade as we step through
-        .to(cap, { opacity: 0, y: -34, duration: 0.32 }, 0.12)
-        .to(cue, { opacity: 0, duration: 0.18 }, 0.04)
-        // vignette opens up (we're inside)
-        .to(vign, { opacity: 0.28, duration: 0.8 }, 0.1)
-        // single light sweep across the glass
-        .fromTo(glint,
-          { opacity: 0, backgroundPosition: '160% 160%' },
-          { opacity: 1, backgroundPosition: '-60% -60%', duration: 0.42 }, 0.16)
-        .to(glint, { opacity: 0, duration: 0.2 }, 0.5)
-        // product callouts reveal on the pedestals
-        .to(spots, { opacity: 1, y: 0, duration: 0.4, stagger: 0.13 }, 0.62);
     })();
   </script>
 </body>
