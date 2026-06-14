@@ -323,109 +323,99 @@
     color: rgba(61, 43, 14, 0.7);
   }
 
-  .category {
-    max-width: 1140px;
-    margin: 0 auto;
+  /* ---------- interactive catalogue ---------- */
+  .cat { max-width: 1180px; margin: 0 auto; }
+  .cat__bar {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    justify-content: space-between; margin-bottom: 20px;
   }
-  .category + .category { margin-top: 76px; }
-  .category__head {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding-bottom: 18px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(139, 105, 20, 0.22);
+  .cat__search { position: relative; flex: 1 1 280px; max-width: 420px; }
+  .cat__search input {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+    background: rgba(255,255,255,0.6); border: 1px solid rgba(139,105,20,0.28);
+    border-radius: 999px; padding: 12px 18px 12px 42px; outline: none;
+    transition: border-color .25s ease, box-shadow .25s ease;
   }
-  .category__index {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    color: var(--gold-light);
+  .cat__search input::placeholder { color: rgba(61,43,14,0.45); }
+  .cat__search input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,163,90,0.18); }
+  .cat__search svg {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2;
   }
-  .category__title {
-    flex: 1 1 auto;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3.4vw, 2.3rem);
-    line-height: 1.15;
-    color: var(--text);
-  }
-  .category__count {
-    font-size: 0.66rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-  }
+  .cat__crumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; color: rgba(61,43,14,0.7); }
+  .cat__crumbs button { background: none; border: none; cursor: pointer; font: inherit; color: var(--gold); padding: 0; }
+  .cat__crumbs button:hover { text-decoration: underline; }
+  .cat__crumbs .sep { color: rgba(139,105,20,0.5); }
+  .cat__crumbs .current { color: var(--text); font-weight: 500; }
 
-  /* responsive grid of sub-section cards */
-  .subgrid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  .cat__back {
+    display: inline-flex; align-items: center; gap: 8px; background: none;
+    border: 1px solid rgba(139,105,20,0.3); cursor: pointer; font: inherit;
+    font-size: 0.74rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text);
+    padding: 8px 16px; border-radius: 999px; margin-bottom: 22px;
+    transition: background .25s ease, border-color .25s ease;
   }
-  .subcard {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(139, 105, 20, 0.2);
-    border-radius: 14px;
-    padding: 22px 20px 24px;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
-                box-shadow 0.35s ease, border-color 0.35s ease;
+  .cat__back:hover { background: rgba(196,163,90,0.14); border-color: var(--gold); }
+  .cat__back[hidden] { display: none; }
+
+  .cat__stage { will-change: opacity, transform; }
+  @keyframes catEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .cat__stage.enter { animation: catEnter .45s cubic-bezier(.2,.7,.2,1) both; }
+  .cat__resulthint { font-size: 0.82rem; color: rgba(61,43,14,0.6); margin-bottom: 16px; }
+  .cat__empty { padding: 48px 0; text-align: center; color: rgba(61,43,14,0.6); font-size: 0.95rem; }
+
+  /* big category cards */
+  .cat__cats { display: grid; gap: 24px; grid-template-columns: repeat(2, 1fr); }
+  .bigcard {
+    position: relative; overflow: hidden; cursor: pointer; text-align: left;
+    border: 1px solid rgba(139,105,20,0.25); border-radius: 18px;
+    background: radial-gradient(140% 120% at 100% 0%, rgba(196,163,90,0.18), transparent 60%), rgba(255,255,255,0.5);
+    padding: 42px 34px; min-height: 240px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease, border-color .4s ease;
   }
-  /* small brass accent at the top-left of each card */
-  .subcard::before {
-    content: "";
-    position: absolute; left: 20px; top: 0;
-    width: 34px; height: 2px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  .bigcard:hover { transform: translateY(-6px); box-shadow: 0 26px 56px -28px rgba(61,43,14,0.5); border-color: var(--gold); }
+  .bigcard__index { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: rgba(196,163,90,0.65); line-height: 1; }
+  .bigcard__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.45rem, 3vw, 2.1rem); color: var(--text); margin-top: 14px; }
+  .bigcard__meta { margin-top: 10px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .bigcard__go { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.76rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
+  .bigcard__go::after { content: "\2192"; transition: transform .3s ease; }
+  .bigcard:hover .bigcard__go::after { transform: translateX(5px); }
+
+  /* subcategory tiles */
+  .cat__grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .subtile {
+    position: relative; cursor: pointer; text-align: left;
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 14px; padding: 24px 20px; min-height: 118px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
   }
-  .subcard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px -22px rgba(61, 43, 14, 0.45);
-    border-color: rgba(139, 105, 20, 0.4);
+  .subtile::before { content: ""; position: absolute; left: 20px; top: 0; width: 34px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+  .subtile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); border-color: var(--gold); }
+  .subtile__title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.18rem; color: var(--text); }
+  .subtile__meta { margin-top: 14px; font-size: 0.64rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+
+  /* product cards */
+  .cat__products { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .pcard {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: rgba(255,255,255,0.55); border: 1px solid rgba(139,105,20,0.18); border-radius: 14px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
   }
-  .subcard__top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
+  .pcard:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); }
+  .pcard__img { aspect-ratio: 1 / 1; background: #e9e0d2; overflow: hidden; }
+  .pcard__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pcard__body { padding: 14px 15px 16px; display: flex; flex-direction: column; flex: 1; }
+  .pcard__name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.04rem; line-height: 1.25; color: var(--text); }
+  .pcard__spec { margin-top: 5px; font-size: 0.73rem; line-height: 1.45; color: rgba(61,43,14,0.62); flex: 1; }
+  .pcard__wa {
+    margin-top: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    text-decoration: none; font-size: 0.74rem; font-weight: 600; letter-spacing: .3px; color: #fff;
+    background: #1faf54; border-radius: 999px; padding: 9px 12px; transition: background .25s ease;
   }
-  .subcard__title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 1.18rem;
-    line-height: 1.2;
-    color: var(--text);
-  }
-  .subcard__count {
-    flex: none;
-    font-size: 0.6rem;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .subcard__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 14px;
-  }
-  .subcard__tags span {
-    font-size: 0.72rem;
-    line-height: 1.3;
-    color: rgba(61, 43, 14, 0.8);
-    background: rgba(196, 163, 90, 0.12);
-    border: 1px solid rgba(139, 105, 20, 0.18);
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
+  .pcard__wa:hover { background: #178f44; }
+  .pcard__wa svg { width: 15px; height: 15px; fill: #fff; }
 
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width: 720px) {
@@ -452,10 +442,13 @@
     .hero__tagline { margin-top: 32px; }
 
     .catalog { padding: 80px 6vw 72px; }
-    .subgrid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-    .subcard { padding: 18px 16px 20px; }
-    .subcard__title { font-size: 1.06rem; }
-    .subcard__tags span { font-size: 0.68rem; padding: 3px 9px; }
+    .cat__cats { grid-template-columns: 1fr; gap: 16px; }
+    .bigcard { padding: 30px 24px; min-height: 190px; }
+    .cat__grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .subtile { padding: 18px 16px; min-height: 100px; }
+    .subtile__title { font-size: 1.04rem; }
+    .cat__products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+    .pcard__name { font-size: 0.96rem; }
   }
 </style>
 </head>
@@ -516,107 +509,22 @@
   <section class="catalog" id="products">
     <div class="catalog__head">
       <p class="section__eyebrow">What We Offer</p>
-      <h2 class="section__title">Our Products</h2>
-      <p class="catalog__intro">Two complete collections, organised into detailed sub-sections covering every fitting, mechanism and lock for modern interiors.</p>
+      <h2 class="section__title">Product Catalogue</h2>
+      <p class="catalog__intro">Explore our complete range — precision furniture hardware &amp; modular kitchen fittings, and a full line of locks. Tap a category to browse.</p>
     </div>
 
-    <!-- ============ CATEGORY 1 ============ -->
-    <div class="category" id="furniture-hardware">
-      <div class="category__head">
-        <span class="category__index">01</span>
-        <h3 class="category__title">Furniture Hardware &amp; Modular Kitchen Fittings</h3>
-        <span class="category__count">10 Sub-sections</span>
+    <div class="cat" id="catalogue">
+      <div class="cat__bar">
+        <nav class="cat__crumbs" id="catCrumbs" aria-label="Breadcrumb"></nav>
+        <div class="cat__search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input id="catSearch" type="search" placeholder="Search products…" aria-label="Search products" autocomplete="off" />
+        </div>
       </div>
-      <div class="subgrid">
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Handles &amp; Knobs</h4><span class="subcard__count">6 types</span></div>
-          <div class="subcard__tags"><span>Cabinet Handles</span><span>Knobs</span><span>Profile / Gola Handles</span><span>Recessed Handles</span><span>T-Bar Handles</span><span>Edge Pulls</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Hinges</h4><span class="subcard__count">6 types</span></div>
-          <div class="subcard__tags"><span>Concealed Hinges</span><span>Soft-Close Hinges</span><span>Auto-Close Hinges</span><span>Clip-On Hinges</span><span>Glass Door Hinges</span><span>Mounting Plates</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Drawer Slides &amp; Channels</h4><span class="subcard__count">5 types</span></div>
-          <div class="subcard__tags"><span>Telescopic Channels</span><span>Ball-Bearing Slides</span><span>Soft-Close Slides</span><span>Push-to-Open Slides</span><span>Under-Mount Slides</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Drawer Systems</h4><span class="subcard__count">5 types</span></div>
-          <div class="subcard__tags"><span>Tandem Box</span><span>Slim Box</span><span>Box with Railing</span><span>Inner Drawers</span><span>Pan Drawers</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Kitchen Baskets &amp; Organisers</h4><span class="subcard__count">6 types</span></div>
-          <div class="subcard__tags"><span>Pull-Out Baskets</span><span>Cutlery Trays</span><span>Plate Baskets</span><span>Thali Baskets</span><span>Bottle Pull-Outs</span><span>Detergent Holders</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Tall &amp; Pantry Units</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Pantry Pull-Outs</span><span>Tall Unit Baskets</span><span>Larder Units</span><span>Oil &amp; Bottle Units</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Corner Solutions</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Magic Corner</span><span>Lemans Corner</span><span>Carousel Units</span><span>D-Tray Corner</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Wardrobe Fittings</h4><span class="subcard__count">6 types</span></div>
-          <div class="subcard__tags"><span>Sliding Systems</span><span>Trouser Racks</span><span>Valet Rods</span><span>Tie &amp; Belt Holders</span><span>Wardrobe Lifts</span><span>Soft-Close Dampers</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Lift-Up &amp; Flap Fittings</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Gas Lifts</span><span>Flap Stays</span><span>Lift-Up Mechanisms</span><span>Aventos-Style Fittings</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Accessories &amp; Connectors</h4><span class="subcard__count">6 types</span></div>
-          <div class="subcard__tags"><span>Minifix Connectors</span><span>Shelf Supports</span><span>Leg Levellers</span><span>Skirting &amp; Plinth</span><span>Cabinet Hangers</span><span>LED Profile Lights</span></div>
-        </article>
-      </div>
+      <button class="cat__back" id="catBack" hidden>&larr; Back</button>
+      <div class="cat__stage" id="catStage"></div>
     </div>
 
-    <!-- ============ CATEGORY 2 ============ -->
-    <div class="category" id="locks">
-      <div class="category__head">
-        <span class="category__index">02</span>
-        <h3 class="category__title">Locks</h3>
-        <span class="category__count">9 Sub-sections</span>
-      </div>
-      <div class="subgrid">
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Mortise Door Locks</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Mortise Lock Bodies</span><span>Mortise Handle Sets</span><span>Baby Latch</span><span>Dead Bolt Locks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Cylindrical Locks</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Cylinder Locks</span><span>Pin Cylinders</span><span>Knob Locks</span><span>Tubular Latches</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Rim &amp; Night Latches</h4><span class="subcard__count">3 types</span></div>
-          <div class="subcard__tags"><span>Rim Locks</span><span>Night Latches</span><span>Rim Cylinders</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Padlocks</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Brass Padlocks</span><span>Hardened Steel</span><span>Long-Shackle</span><span>Combination Padlocks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Cabinet &amp; Drawer Locks</h4><span class="subcard__count">5 types</span></div>
-          <div class="subcard__tags"><span>Furniture Locks</span><span>Cam Locks</span><span>Drawer Locks</span><span>Cupboard Locks</span><span>Multipurpose Locks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Glass Door Locks</h4><span class="subcard__count">3 types</span></div>
-          <div class="subcard__tags"><span>Glass-to-Glass Locks</span><span>Patch Locks</span><span>Showcase Locks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Sliding Door Locks</h4><span class="subcard__count">3 types</span></div>
-          <div class="subcard__tags"><span>Hook Locks</span><span>Sliding Wardrobe Locks</span><span>Patio Locks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Digital &amp; Smart Locks</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Smart Door Locks</span><span>Biometric Locks</span><span>Keypad Locks</span><span>RFID Cabinet Locks</span></div>
-        </article>
-        <article class="subcard">
-          <div class="subcard__top"><h4 class="subcard__title">Main Door Handle Sets</h4><span class="subcard__count">4 types</span></div>
-          <div class="subcard__tags"><span>Mortise Handle Sets</span><span>Pull Handles</span><span>Lever Handles</span><span>Escutcheons</span></div>
-        </article>
-      </div>
-    </div>
   </section>
 
   <section class="section" id="gallery">
@@ -782,6 +690,184 @@
           });
         });
       }
+    })();
+  </script>
+
+  <!-- ===================== PRODUCT CATALOGUE (vanilla JS) ===================== -->
+  <script>
+    (function () {
+      const stage   = document.getElementById('catStage');
+      if (!stage) return;
+      const crumbsEl = document.getElementById('catCrumbs');
+      const backBtn  = document.getElementById('catBack');
+      const searchEl = document.getElementById('catSearch');
+
+      // ---- categories & subcategories ----
+      const CATS = [
+        { id: 'furniture', name: 'Furniture Hardware & Modular Kitchen Fittings', subs: [
+          'Hinges','Drawer Channels & Runners','Handles & Knobs','Lift Systems','Soft Close Mechanisms',
+          'Cabinet Fittings','Wardrobe Accessories','Glass Fittings','Kitchen Baskets','Aluminium Profiles'] },
+        { id: 'locks', name: 'Locks', subs: [
+          'Mortise Locks','Padlocks','Digital Smart Locks','Door Closers','Deadbolts',
+          'Rim Locks','Drawer Locks','Glass Door Locks','Sliding Door Locks','Locker Locks'] }
+      ];
+
+      // ---- product names per subcategory (~10 each → ~200 total) ----
+      const NAMES = {
+        'Hinges': ['Soft-Close Concealed Hinge','Auto-Close Clip-On Hinge','165° Wide-Angle Hinge','Glass Door Hinge','Zero-Protrusion Hinge','Inset Cabinet Hinge','Half-Overlay Hinge','Full-Overlay Hinge','Pie-Cut Corner Hinge','Hydraulic Pivot Hinge'],
+        'Drawer Channels & Runners': ['Telescopic Ball-Bearing Channel','Soft-Close Drawer Runner','Under-Mount Slide','Push-to-Open Channel','3-Fold Full Extension Slide','Heavy-Duty 45kg Runner','Single-Extension Channel','Synchronised Runner Set','Concealed Soft-Close Runner','Roller Drawer Channel'],
+        'Handles & Knobs': ['SS Cabinet Handle','Brass Cabinet Knob','Profile Gola Handle','Recessed Edge Pull','T-Bar Handle','Matte Black Bar Handle','Antique Drawer Pull','Leather-Wrapped Handle','Shell Cup Handle','Hexagon Knob'],
+        'Lift Systems': ['Gas Lift Strut','Flap-Up Stay','Bi-Fold Lift Mechanism','Parallel Lift System','Stay Lift Hinge','Top-Hinged Lift','Soft-Close Lift Set','Pneumatic Cabinet Lift','Swing-Up Fitting','Overhead Lift Arm'],
+        'Soft Close Mechanisms': ['Door Soft-Close Damper','Drawer Damper','Adapter Soft-Close Kit','Hinge Damper Clip','In-Line Buffer','Linear Damper','Push-Latch Damper','Rotary Damper','Cushion Stop Buffer','Universal Damper Set'],
+        'Cabinet Fittings': ['Minifix Cam Connector','Shelf Support Pin','Adjustable Leg Leveller','Cabinet Hanging Bracket','Back-Panel Clip','Plinth Clip Set','Cam Dowel','Screw-In Foot','Suspension Bracket','Connector Bolt'],
+        'Wardrobe Accessories': ['Pull-Out Trouser Rack','Soft-Close Valet Rod','Tie & Belt Holder','Wardrobe Lift Pull-Down','Pull-Out Mirror','Sliding Shoe Rack','Wardrobe Tube & Bracket','Pull-Out Basket Drawer','Jewellery Insert Tray','Folding Pants Hanger'],
+        'Glass Fittings': ['Glass Shelf Bracket','Glass Door Pivot','Standoff Glass Holder','Glass Clamp Connector','Spider Fitting','90° Glass Hinge','Patch Fitting Set','Glass Knob','Sliding Glass Track','Glass Edge Profile'],
+        'Kitchen Baskets': ['Cutlery Basket Tray','Plate & Bowl Basket','Pull-Out Pantry Basket','Thali Basket','Bottle Pull-Out','Corner Carousel Basket','Detergent Holder Basket','Cup & Saucer Basket','Multipurpose Wire Basket','Tall Unit Basket'],
+        'Aluminium Profiles': ['G-Profile Handle','J-Profile Gola','C-Channel Profile','LED Recess Profile','Shutter Frame Profile','Edge Banding Profile','Skirting Profile','Glass Shutter Profile','Wardrobe Track Profile','Corner Joint Profile'],
+        'Mortise Locks': ['Mortise Lock Body','Mortise Handle Set','Baby Latch Mortise','5-Lever Mortise Lock','Cylindrical Mortise Lock','Euro-Profile Mortise','Heavy-Duty Mortise Lock','Bathroom Mortise Set','Privacy Mortise Lock','Multipoint Mortise Lock'],
+        'Padlocks': ['Brass Padlock 50mm','Long-Shackle Padlock','Hardened Steel Padlock','Combination Padlock','Weatherproof Padlock','Disc Detainer Padlock','Shutter Padlock','Mini Travel Padlock','Anti-Cut Padlock','Keyed-Alike Padlock'],
+        'Digital Smart Locks': ['Biometric Door Lock','Keypad Smart Lock','RFID Card Lock','Fingerprint Padlock','WiFi Smart Deadbolt','Bluetooth Cabinet Lock','Face-Recognition Lock','PIN-Code Glass Lock','Smart Rim Lock','App-Controlled Latch'],
+        'Door Closers': ['Hydraulic Door Closer','Surface Door Closer','Concealed Door Closer','Floor Spring Closer','Hold-Open Closer','Adjustable Speed Closer','Heavy-Duty Door Closer','Slim-Line Closer','Cam-Action Closer','Glass Door Closer'],
+        'Deadbolts': ['Single-Cylinder Deadbolt','Double-Cylinder Deadbolt','Vertical Deadbolt','Tubular Deadbolt','Thumb-Turn Deadbolt','Keyed Deadbolt','Smart Deadbolt','Jimmy-Proof Deadbolt','Mortise Deadbolt','Long-Throw Deadbolt'],
+        'Rim Locks': ['Night Latch Rim Lock','Rim Cylinder Lock','Auto-Deadlocking Rim','Double-Locking Rim','Brass Rim Lock','Heavy-Duty Rim Latch','Surface Rim Lock','Cottage Rim Lock','Sliding Rim Latch','Security Rim Lock'],
+        'Drawer Locks': ['Cam Drawer Lock','Push-Button Drawer Lock','Central Locking System','Pedestal Drawer Lock','Sliding Drawer Lock','Plunger Lock','Furniture Cam Lock','Desk Drawer Lock','Multi-Drawer Gang Lock','Hidden Drawer Lock'],
+        'Glass Door Locks': ['Glass-to-Glass Lock','Patch Lock','Showcase Sliding Lock','Centre Glass Door Lock','Brass Glass Door Lock','Display Cabinet Lock','Glass Swing Door Lock','Keyed Glass Lock','Round Glass Door Lock','Office Glass Door Lock'],
+        'Sliding Door Locks': ['Hook Bolt Sliding Lock','Sliding Wardrobe Lock','Patio Door Lock','Mortise Sliding Lock','Crescent Sliding Lock','Aluminium Sliding Lock','Double-Hook Sliding Lock','Flush Sliding Lock','Touch Sliding Lock','Security Sliding Bolt'],
+        'Locker Locks': ['Cam Locker Lock','Combination Locker Lock','Coin-Return Locker Lock','RFID Locker Lock','Padlock-Hasp Locker','Master-Keyed Locker Lock','Digital Locker Lock','Gym Locker Lock','Vertical Locker Lock','Push-Lock Locker']
+      };
+
+      // ---- plausible spec generator ----
+      const HW_MAT  = ['Stainless steel','Zinc alloy','Cold-rolled steel','Aluminium','Nickel-plated steel'];
+      const HW_FIN  = ['satin nickel','matte black','antique brass','chrome','brushed SS'];
+      const HW_FEAT = ['precision-engineered','heavy-duty load rated','corrosion resistant','smooth operation','easy installation'];
+      const LK_MAT  = ['Solid brass','Hardened steel','Zinc alloy','Stainless steel'];
+      const LK_GRADE= ['BIS certified','Grade-1 rated','corrosion resistant','dual-tone finish','precision build'];
+      const LK_FEAT = ['anti-theft','anti-drill','double-action','weatherproof','pick-resistant'];
+      const pick = (arr, i) => arr[((i % arr.length) + arr.length) % arr.length];
+      function specFor(catId, sub, i) {
+        if (catId === 'locks') return pick(LK_MAT, i) + ' body · ' + pick(LK_GRADE, i + sub.length) + ' · ' + pick(LK_FEAT, i + 1);
+        return pick(HW_MAT, i) + ' · ' + pick(HW_FIN, i + sub.length) + ' finish · ' + pick(HW_FEAT, i + 1);
+      }
+
+      // ---- build data + flat index for search ----
+      let gid = 0;
+      const DATA = CATS.map(c => ({
+        id: c.id, name: c.name,
+        subs: c.subs.map(sn => ({
+          name: sn,
+          products: (NAMES[sn] || []).map((nm, i) => ({
+            name: nm, spec: specFor(c.id, sn, i),
+            img: 'https://picsum.photos/300/300?random=' + (++gid)
+          }))
+        }))
+      }));
+      const ALL = [];
+      DATA.forEach(c => c.subs.forEach(s => s.products.forEach(p => ALL.push({ name: p.name, spec: p.spec, img: p.img }))));
+
+      // ---- helpers ----
+      const WA = 'https://wa.me/918454006602';
+      const waSvg = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5z"/></svg>';
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+      const waLink = name => WA + '?text=' + encodeURIComponent('Hi MSquare, I would like to enquire about: ' + name);
+      function productCard(p) {
+        return '<article class="pcard">'
+          + '<div class="pcard__img"><img loading="lazy" src="' + p.img + '" alt="' + esc(p.name) + '" /></div>'
+          + '<div class="pcard__body">'
+          + '<h4 class="pcard__name">' + esc(p.name) + '</h4>'
+          + '<p class="pcard__spec">' + esc(p.spec) + '</p>'
+          + '<a class="pcard__wa" target="_blank" rel="noopener" href="' + waLink(p.name) + '">' + waSvg + 'Enquire on WhatsApp</a>'
+          + '</div></article>';
+      }
+
+      // ---- state + render ----
+      const state = { level: 0, ci: null, si: null, q: '' };
+
+      function render() {
+        let html = '';
+        if (state.q) {
+          const q = state.q.toLowerCase();
+          const res = ALL.filter(p => p.name.toLowerCase().indexOf(q) !== -1);
+          html = '<p class="cat__resulthint">' + res.length + ' result' + (res.length !== 1 ? 's' : '') + ' for &ldquo;' + esc(state.q) + '&rdquo;</p>';
+          html += res.length ? '<div class="cat__products">' + res.map(productCard).join('') + '</div>'
+                             : '<div class="cat__empty">No products match your search.</div>';
+        } else if (state.level === 0) {
+          html = '<div class="cat__cats">' + DATA.map((c, i) => {
+            const n = c.subs.reduce((a, s) => a + s.products.length, 0);
+            return '<button class="bigcard" data-ci="' + i + '">'
+              + '<span class="bigcard__index">0' + (i + 1) + '</span>'
+              + '<span class="bigcard__title">' + esc(c.name) + '</span>'
+              + '<span class="bigcard__meta">' + c.subs.length + ' Categories · ' + n + ' Products</span>'
+              + '<span class="bigcard__go">Explore</span></button>';
+          }).join('') + '</div>';
+        } else if (state.level === 1) {
+          const c = DATA[state.ci];
+          html = '<div class="cat__grid">' + c.subs.map((s, i) =>
+            '<button class="subtile" data-si="' + i + '"><span class="subtile__title">' + esc(s.name) + '</span>'
+            + '<span class="subtile__meta">' + s.products.length + ' Products</span></button>'
+          ).join('') + '</div>';
+        } else {
+          const s = DATA[state.ci].subs[state.si];
+          html = '<div class="cat__products">' + s.products.map(productCard).join('') + '</div>';
+        }
+        stage.innerHTML = html;
+        // re-trigger fade/slide animation
+        stage.classList.remove('enter'); void stage.offsetWidth; stage.classList.add('enter');
+        renderCrumbs();
+        backBtn.hidden = (state.level === 0 && !state.q);
+      }
+
+      function renderCrumbs() {
+        let h;
+        if (state.q) {
+          h = '<button data-go="home">Home</button><span class="sep">/</span><span class="current">Search results</span>';
+        } else if (state.level === 0) {
+          h = '<span class="current">Home</span>';
+        } else {
+          const c = DATA[state.ci];
+          h = '<button data-go="home">Home</button>';
+          if (state.level === 1) {
+            h += '<span class="sep">/</span><span class="current">' + esc(c.name) + '</span>';
+          } else {
+            h += '<span class="sep">/</span><button data-go="cat">' + esc(c.name) + '</button>';
+            h += '<span class="sep">/</span><span class="current">' + esc(c.subs[state.si].name) + '</span>';
+          }
+        }
+        crumbsEl.innerHTML = h;
+      }
+
+      function scrollToTop() {
+        const top = document.getElementById('products');
+        if (!top) return;
+        const y = top.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+
+      // ---- events ----
+      stage.addEventListener('click', e => {
+        const big = e.target.closest('.bigcard');
+        if (big) { state.level = 1; state.ci = +big.dataset.ci; state.si = null; render(); scrollToTop(); return; }
+        const tile = e.target.closest('.subtile');
+        if (tile) { state.level = 2; state.si = +tile.dataset.si; render(); scrollToTop(); return; }
+      });
+      crumbsEl.addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.go === 'home') { state.level = 0; state.ci = null; state.si = null; state.q = ''; searchEl.value = ''; }
+        else if (b.dataset.go === 'cat') { state.level = 1; state.si = null; state.q = ''; searchEl.value = ''; }
+        render(); scrollToTop();
+      });
+      backBtn.addEventListener('click', () => {
+        if (state.q) { state.q = ''; searchEl.value = ''; render(); return; }
+        if (state.level === 2) { state.level = 1; state.si = null; }
+        else if (state.level === 1) { state.level = 0; state.ci = null; }
+        render(); scrollToTop();
+      });
+      let timer;
+      searchEl.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { state.q = searchEl.value.trim(); render(); }, 120);
+      });
+
+      render();
     })();
   </script>
 </body>
