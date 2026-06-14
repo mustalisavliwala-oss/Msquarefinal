@@ -57,6 +57,33 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   }
 
+  /* ---------------- AMBIENT INTERACTIVE LAYERS ---------------- */
+  /* warm gold spotlight that follows the cursor */
+  .spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 620px; height: 620px;
+    margin: -310px 0 0 -310px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle,
+      rgba(196, 163, 90, 0.22) 0%,
+      rgba(196, 163, 90, 0.10) 35%,
+      rgba(196, 163, 90, 0) 68%);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    will-change: transform;
+  }
+  /* floating gold-dust particles */
+  #dust {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   /* ---------------- NAVBAR ---------------- */
   .navbar {
     position: fixed;
@@ -160,9 +187,44 @@
     width: 150px;
     height: 150px;
     opacity: 0;
+    perspective: 800px;
     will-change: transform, opacity;
   }
-  .hero__logo img { width: 100%; height: 100%; display: block; object-fit: contain; }
+  .hero__logo-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .hero__logo img {
+    width: 100%; height: 100%;
+    display: block; object-fit: contain;
+    filter: drop-shadow(0 14px 22px rgba(61, 43, 14, 0.28));
+    -webkit-user-select: none; user-select: none;
+  }
+  /* light gleam sweeping across the brass, clipped to the logo shape */
+  .hero__gleam {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    -webkit-mask: url("logo.png") center / contain no-repeat;
+            mask: url("logo.png") center / contain no-repeat;
+    background: linear-gradient(115deg,
+      rgba(255,250,235,0) 42%,
+      rgba(255,252,240,0.75) 50%,
+      rgba(255,250,235,0) 58%);
+    background-size: 280% 280%;
+    background-position: 150% 150%;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    animation: gleam 5.5s ease-in-out 2.2s infinite;
+  }
+  @keyframes gleam {
+    0%   { background-position: 150% 150%; }
+    45%  { background-position: -50% -50%; }
+    100% { background-position: -50% -50%; }
+  }
 
   .hero__brand {
     font-family: 'Cormorant Garamond', serif;
@@ -296,6 +358,10 @@
 </head>
 <body>
 
+  <!-- ambient interactive layers -->
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
   <!-- ===================== NAVBAR ===================== -->
   <nav class="navbar" id="navbar" aria-label="Primary">
     <a class="navbar__brand" href="#top" aria-label="MSquare Hardwares home">
@@ -322,7 +388,10 @@
 
       <!-- Logo mark — the actual MSquare brass emblem, background removed -->
       <div class="hero__logo" id="heroLogo">
-        <img src="logo.png" alt="MSquare Hardwares logo" width="420" height="420" />
+        <div class="hero__logo-inner" id="heroLogoInner">
+          <img src="logo.png" alt="MSquare Hardwares logo" width="420" height="420" draggable="false" />
+          <span class="hero__gleam" aria-hidden="true"></span>
+        </div>
       </div>
 
       <h1 class="hero__brand" id="heroBrand">M<span class="accent">Square</span> Hardwares</h1>
@@ -365,6 +434,7 @@
 
   <!-- ===================== GSAP ===================== -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -439,6 +509,125 @@
         toggle.setAttribute('aria-expanded', 'false');
       }
     });
+
+    /* ============ INTERACTIVE LAYERS ============ */
+    (function () {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+      /* ---- 1. Living brass logo: 3D tilt toward cursor / device ---- */
+      const logoInner = document.getElementById('heroLogoInner');
+      if (logoInner && !reduce) {
+        const MAX = 16; // degrees
+        let tx = 0, ty = 0, cx = 0, cy = 0;
+        function render() {
+          cx += (tx - cx) * 0.12;
+          cy += (ty - cy) * 0.12;
+          logoInner.style.transform =
+            'rotateX(' + cy.toFixed(2) + 'deg) rotateY(' + cx.toFixed(2) + 'deg)';
+          requestAnimationFrame(render);
+        }
+        render();
+        if (isFinePointer) {
+          window.addEventListener('mousemove', function (e) {
+            const nx = (e.clientX / window.innerWidth) - 0.5;
+            const ny = (e.clientY / window.innerHeight) - 0.5;
+            tx = nx * MAX * 2;
+            ty = -ny * MAX * 2;
+          }, { passive: true });
+        }
+        // device tilt on phones/tablets
+        window.addEventListener('deviceorientation', function (e) {
+          if (e.gamma == null || e.beta == null) return;
+          tx = Math.max(-MAX, Math.min(MAX, e.gamma)) * 1.4;
+          ty = Math.max(-MAX, Math.min(MAX, (e.beta - 45))) * -1.0;
+        }, { passive: true });
+      }
+
+      /* ---- 2. Warm gold spotlight following the cursor ---- */
+      const spot = document.getElementById('spotlight');
+      if (spot && isFinePointer && !reduce) {
+        let sx = window.innerWidth / 2, sy = window.innerHeight / 2, rx = sx, ry = sy;
+        window.addEventListener('mousemove', function (e) {
+          sx = e.clientX; sy = e.clientY;
+          spot.style.opacity = '1';
+        }, { passive: true });
+        document.addEventListener('mouseleave', function () { spot.style.opacity = '0'; });
+        (function move() {
+          rx += (sx - rx) * 0.15; ry += (sy - ry) * 0.15;
+          spot.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+          requestAnimationFrame(move);
+        })();
+      }
+
+      /* ---- 3. Floating gold dust ---- */
+      const canvas = document.getElementById('dust');
+      if (canvas && !reduce) {
+        const ctx = canvas.getContext('2d');
+        let w, h, parts = [], mxp = 0.5, myp = 0.5;
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+          const count = Math.min(46, Math.round(w * h / 34000));
+          parts = [];
+          for (let i = 0; i < count; i++) {
+            parts.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              r: Math.random() * 1.8 + 0.6,
+              spd: Math.random() * 0.28 + 0.08,
+              drift: Math.random() * 0.6 - 0.3,
+              a: Math.random() * 0.45 + 0.15,
+              ph: Math.random() * Math.PI * 2
+            });
+          }
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        if (isFinePointer) window.addEventListener('mousemove', function (e) {
+          mxp = e.clientX / window.innerWidth; myp = e.clientY / window.innerHeight;
+        }, { passive: true });
+        (function draw() {
+          ctx.clearRect(0, 0, w, h);
+          const ox = (mxp - 0.5) * 24, oy = (myp - 0.5) * 24;
+          for (const p of parts) {
+            p.y -= p.spd; p.ph += 0.01;
+            p.x += p.drift * 0.4 + Math.sin(p.ph) * 0.2;
+            if (p.y < -6) { p.y = h + 6; p.x = Math.random() * w; }
+            const tw = 0.6 + 0.4 * Math.sin(p.ph * 2);
+            ctx.beginPath();
+            ctx.arc(p.x + ox * p.spd, p.y + oy * p.spd, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(196, 163, 90,' + (p.a * tw).toFixed(3) + ')';
+            ctx.fill();
+          }
+          requestAnimationFrame(draw);
+        })();
+      }
+
+      /* ---- 4. Scroll choreography (GSAP ScrollTrigger) ---- */
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        // hero content gently recedes as you scroll past it (whole block, so it
+        // never fights the intro tweens that target the logo/brand individually)
+        if (!reduce) {
+          gsap.to('.hero__inner', {
+            y: -60, scale: 0.92, opacity: 0.15, ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+          });
+        }
+        // each section reveals with a staggered fade-up
+        document.querySelectorAll('.section').forEach(function (sec) {
+          const items = sec.querySelectorAll('.section__eyebrow, .section__title, .section__text');
+          gsap.set(items, { opacity: 0, y: 36 });
+          ScrollTrigger.create({
+            trigger: sec, start: 'top 78%',
+            onEnter: function () {
+              gsap.to(items, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12, overwrite: true });
+            }
+          });
+        });
+      }
+    })();
   </script>
 </body>
 </html>
