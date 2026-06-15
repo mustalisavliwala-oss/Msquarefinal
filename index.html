@@ -492,6 +492,33 @@
   .footer__links a:hover { color: var(--gold); }
   .footer__copy { margin-top: 22px; font-size: 0.72rem; letter-spacing: .5px; color: rgba(61,43,14,0.55); }
 
+  /* ---------- content bands & cards ---------- */
+  .band { position: relative; z-index: 1; padding: 60px 6vw; border-top: 1px solid rgba(139,105,20,0.15); }
+
+  .stats { background: linear-gradient(180deg, rgba(196,163,90,0.12), rgba(196,163,90,0.04)); }
+  .stats__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+  .stat__num { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); color: var(--gold); line-height: 1; }
+  .stat__label { display: block; margin-top: 8px; font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(61,43,14,0.7); font-weight: 600; }
+
+  .cardgrid { width: 100%; max-width: 1100px; margin: 38px auto 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); text-align: left; }
+  .card { position: relative; background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2); border-radius: 14px; padding: 26px 22px; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); border-color: rgba(139,105,20,0.4); }
+  .card__num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.5rem; color: var(--gold-light); line-height: 1; }
+  .card__title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: var(--text); margin-top: 8px; }
+  .card__text { margin-top: 8px; font-size: 0.9rem; line-height: 1.6; color: rgba(61,43,14,0.7); }
+
+  .tcard { position: relative; background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2); border-radius: 14px; padding: 28px 24px; }
+  .tcard__quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08rem; line-height: 1.5; color: var(--text); }
+  .tcard__quote::before { content: "\201C"; color: var(--gold-light); font-size: 2rem; line-height: 0; vertical-align: -0.35em; margin-right: 3px; }
+  .tcard__who { margin-top: 16px; font-size: 0.82rem; color: var(--gold); font-weight: 600; letter-spacing: .4px; }
+  .tcard__role { color: rgba(61,43,14,0.6); font-weight: 400; }
+
+  .cta { background: linear-gradient(135deg, rgba(139,105,20,0.13), rgba(196,163,90,0.10)); text-align: center; }
+  .cta__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.8rem, 4.5vw, 2.7rem); color: var(--text); max-width: 720px; margin: 0 auto; line-height: 1.15; }
+  .cta__text { max-width: 560px; margin: 14px auto 0; font-size: 1rem; line-height: 1.7; color: rgba(61,43,14,0.72); }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 26px; }
+  .cta .btn { padding: 13px 26px; font-size: 0.86rem; }
+
   /* ---------------- RESPONSIVE ---------------- */
   @media (max-width: 720px) {
     .navbar { padding: 14px 6vw; }
@@ -525,6 +552,8 @@
     .cat__products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
     .pcard__name { font-size: 0.96rem; }
     .contact__grid { grid-template-columns: 1fr; gap: 20px; }
+    .band { padding: 46px 6vw; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 24px 14px; }
   }
 </style>
 </head>
@@ -544,8 +573,8 @@
 
     <ul class="navbar__links" id="navLinks">
       <li><a href="#about">About</a></li>
+      <li><a href="#why">Why Us</a></li>
       <li><a href="#products">Products</a></li>
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -582,6 +611,31 @@
     <p class="section__text">MSquare Hardwares is Mumbai's destination for premium furniture hardware &amp; interior solutions. Founded by Mehlam Ratlam and Mustafa Indore, we bring precision, quality and a curated range of fittings and locks to homes, kitchens and interiors — guided by a single principle: precision in every detail.</p>
   </section>
 
+  <!-- ===================== STATS ===================== -->
+  <section class="band stats" aria-label="MSquare at a glance">
+    <div class="stats__grid">
+      <div class="stat"><span class="stat__num">15+</span><span class="stat__label">Years of Trust</span></div>
+      <div class="stat"><span class="stat__num">200+</span><span class="stat__label">Products</span></div>
+      <div class="stat"><span class="stat__num">20+</span><span class="stat__label">Categories</span></div>
+      <div class="stat"><span class="stat__num">2000+</span><span class="stat__label">Happy Customers</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY MSQUARE ===================== -->
+  <section class="section" id="why">
+    <p class="section__eyebrow">Why MSquare</p>
+    <h2 class="section__title">Built on Precision &amp; Trust</h2>
+    <p class="section__text">From a single handle to a full project order, here's why interior professionals and homeowners across Mumbai rely on MSquare.</p>
+    <div class="cardgrid">
+      <article class="card"><div class="card__num">01</div><h3 class="card__title">Premium Quality</h3><p class="card__text">Carefully selected hardware engineered to last — smooth in action, durable and finished to perfection.</p></article>
+      <article class="card"><div class="card__num">02</div><h3 class="card__title">Everything Under One Roof</h3><p class="card__text">Furniture hardware, modular kitchen fittings and a full line of locks — all from a single trusted supplier.</p></article>
+      <article class="card"><div class="card__num">03</div><h3 class="card__title">Trusted Brands</h3><p class="card__text">Genuine products from established names, so you get reliability and after-sales confidence every time.</p></article>
+      <article class="card"><div class="card__num">04</div><h3 class="card__title">Expert Guidance</h3><p class="card__text">Years of hands-on experience to help you choose the right fitting for every application.</p></article>
+      <article class="card"><div class="card__num">05</div><h3 class="card__title">Bulk &amp; Project Supply</h3><p class="card__text">Stock depth and competitive pricing for contractors, builders and large modular projects.</p></article>
+      <article class="card"><div class="card__num">06</div><h3 class="card__title">After-Sales Support</h3><p class="card__text">We're here long after the purchase — for replacements, advice and repeat orders.</p></article>
+    </div>
+  </section>
+
   <section class="catalog" id="products">
     <div class="catalog__head">
       <p class="section__eyebrow">What We Offer</p>
@@ -603,10 +657,54 @@
 
   </section>
 
-  <section class="section" id="gallery">
-    <p class="section__eyebrow">Our Work</p>
-    <h2 class="section__title">Gallery</h2>
-    <p class="section__text">Coming soon — a showcase of interiors brought to life with MSquare precision.</p>
+  <!-- ===================== WHO WE SERVE ===================== -->
+  <section class="section" id="clients">
+    <p class="section__eyebrow">Who We Serve</p>
+    <h2 class="section__title">Trusted by the Trade</h2>
+    <p class="section__text">From large interior projects to a single home renovation, MSquare supplies the people who build great spaces.</p>
+    <div class="cardgrid">
+      <article class="card"><h3 class="card__title">Architects</h3><p class="card__text">Specification-grade hardware and finishes for refined, lasting interiors.</p></article>
+      <article class="card"><h3 class="card__title">Interior Designers</h3><p class="card__text">A curated range to match every concept, palette and budget.</p></article>
+      <article class="card"><h3 class="card__title">Contractors &amp; Builders</h3><p class="card__text">Reliable bulk supply with the stock depth to keep projects on schedule.</p></article>
+      <article class="card"><h3 class="card__title">Modular Kitchen Makers</h3><p class="card__text">Complete fittings, baskets and mechanisms for modern modular kitchens.</p></article>
+      <article class="card"><h3 class="card__title">Carpenters</h3><p class="card__text">Everyday hardware and locks, always in stock and ready to fit.</p></article>
+      <article class="card"><h3 class="card__title">Homeowners</h3><p class="card__text">Friendly guidance to find exactly the right fitting for your home.</p></article>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section" id="process">
+    <p class="section__eyebrow">How It Works</p>
+    <h2 class="section__title">Ordering Made Simple</h2>
+    <p class="section__text">No complicated process — browse, message us, and we'll handle the rest.</p>
+    <div class="cardgrid">
+      <article class="card"><div class="card__num">01</div><h3 class="card__title">Browse the Catalogue</h3><p class="card__text">Explore our categories and sub-sections to find the products you need.</p></article>
+      <article class="card"><div class="card__num">02</div><h3 class="card__title">Enquire on WhatsApp</h3><p class="card__text">Tap enquire on any product and message a co-founder directly.</p></article>
+      <article class="card"><div class="card__num">03</div><h3 class="card__title">Get a Quote</h3><p class="card__text">We'll confirm availability and share the best pricing for your order.</p></article>
+      <article class="card"><div class="card__num">04</div><h3 class="card__title">Delivery &amp; Support</h3><p class="card__text">Collect from our showroom or arrange delivery — with support after the sale.</p></article>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section" id="testimonials">
+    <p class="section__eyebrow">Testimonials</p>
+    <h2 class="section__title">What Our Clients Say</h2>
+    <div class="cardgrid">
+      <article class="tcard"><p class="tcard__quote">The range is fantastic and the quality is consistently excellent. MSquare has become our go-to for every project.</p><p class="tcard__who">Interior Designer<span class="tcard__role"> · Mumbai</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Quick responses, fair pricing and reliable stock for bulk orders. Exactly what a contractor needs.</p><p class="tcard__who">Contractor<span class="tcard__role"> · Modular Projects</span></p></article>
+      <article class="tcard"><p class="tcard__quote">They patiently helped me pick the right fittings for my kitchen. Genuinely helpful and premium products.</p><p class="tcard__who">Homeowner<span class="tcard__role"> · Bhendi Bazar</span></p></article>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="band cta" aria-label="Get in touch">
+    <h2 class="cta__title">Visit our Mumbai showroom — or enquire in seconds</h2>
+    <p class="cta__text">Explore the full range at Al-Nasr Tower, Bhendi Bazar, or message our co-founders directly on WhatsApp for prices and availability.</p>
+    <div class="cta__actions">
+      <button class="btn btn--wa" type="button" data-enquire>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8z"/></svg>WhatsApp Us</button>
+      <a class="btn btn--call" href="tel:+918454006602">Call Now</a>
+    </div>
   </section>
 
   <section class="section" id="contact">
@@ -951,6 +1049,11 @@
         if (e.target.closest('[data-enq-go]')) closeEnq();
       });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeEnq(); });
+      // any element with [data-enquire] opens the co-founder chooser (CTA, etc.)
+      document.addEventListener('click', e => {
+        const t = e.target.closest('[data-enquire]');
+        if (t) { e.preventDefault(); openEnq(t.getAttribute('data-enquire') || ''); }
+      });
 
       // ---- state + render ----
       const state = { level: 0, ci: null, si: null, q: '' };
