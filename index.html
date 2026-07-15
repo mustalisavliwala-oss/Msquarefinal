@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Felts — Compressed Woolen Felt, Foam & Rubber, Mumbai</title>
+<meta name="description" content="Compressed woolen felt, jute felt, foam and rubber sheet — stocked, cut and shipped same-day from our Nagpada, Mumbai workshop.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#14120f;
+    --bg-alt:#1a1712;
+    --panel:#1e1b16;
+    --ink:#eee7da;
+    --ink-dim:#a89e8c;
+    --rust:#c1440e;
+    --rust-bright:#e2570f;
+    --mustard:#c89b3c;
+    --sage:#63744f;
+    --line:rgba(238,231,218,0.12);
+    --line-bright:rgba(238,231,218,0.28);
+    --radius:2px;
+    --ease:cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--rust);color:var(--ink);}
+
+  h1,h2,h3,.display{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:0.95;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    font-size:12px;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  section{position:relative;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* grain overlay */
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:200;
+    opacity:0.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    background:linear-gradient(to bottom, rgba(20,18,15,0.9), transparent);
+    backdrop-filter:blur(2px);
+  }
+  .logo{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:800;font-size:20px;text-transform:uppercase;
+    letter-spacing:0.02em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo .dot{width:8px;height:8px;background:var(--rust);border-radius:50%;flex-shrink:0;}
+  nav ul{display:flex;gap:36px;list-style:none;}
+  nav a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    text-transform:uppercase;letter-spacing:0.12em;
+    color:var(--ink-dim);
+    position:relative;padding-bottom:4px;
+    transition:color .3s var(--ease);
+  }
+  nav a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--rust);transition:width .35s var(--ease);
+  }
+  nav a:hover{color:var(--ink);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    letter-spacing:0.1em;text-transform:uppercase;
+    background:var(--rust);color:#fff;padding:10px 18px;
+    border-radius:var(--radius);
+    transition:background .3s var(--ease), transform .3s var(--ease);
+  }
+  .nav-cta:hover{background:var(--rust-bright);transform:translateY(-1px);}
+  .nav-toggle{display:none;background:none;border:0;color:var(--ink);font-size:22px;cursor:pointer;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    height:100svh;min-height:640px;position:relative;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    overflow:hidden;
+  }
+  #hero-canvas{position:absolute;inset:0;z-index:1;}
+  .hero::before{
+    content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 100%, rgba(20,18,15,0.2), rgba(20,18,15,0.95) 78%),
+               linear-gradient(to bottom, rgba(20,18,15,0.55) 0%, transparent 30%);
+  }
+  .hero-content{position:relative;z-index:3;padding:0 32px 72px;max-width:1240px;margin:0 auto;width:100%;}
+  .hero-eyebrow{
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+    color:var(--mustard);
+  }
+  .hero-eyebrow .rule{width:32px;height:1px;background:var(--mustard);}
+  .hero h1{
+    font-size:clamp(44px, 8vw, 108px);
+    max-width:15ch;
+    color:var(--ink);
+  }
+  .hero h1 em{font-style:normal;color:var(--rust-bright);}
+  .hero-sub{
+    font-family:'Inter',sans-serif;font-size:17px;line-height:1.6;
+    color:var(--ink-dim);max-width:46ch;margin:26px 0 36px;
+  }
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;
+    padding:16px 26px;border-radius:var(--radius);
+    display:inline-flex;align-items:center;gap:10px;
+    transition:all .35s var(--ease);
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--rust);color:#fff;}
+  .btn-primary:hover{background:var(--rust-bright);transform:translateY(-2px);box-shadow:0 10px 30px rgba(193,68,14,0.35);}
+  .btn-ghost{border-color:var(--line-bright);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);background:rgba(238,231,218,0.05);}
+  .scroll-cue{
+    position:absolute;bottom:28px;right:32px;z-index:3;
+    writing-mode:vertical-rl;color:var(--ink-dim);
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;
+  }
+  .scroll-cue .line{width:1px;height:44px;background:var(--line-bright);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
+    background:var(--mustard);animation:cue 2s var(--ease) infinite;
+  }
+  @keyframes cue{0%{top:-100%;}60%,100%{top:100%;}}
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:16px 0;overflow:hidden;white-space:nowrap;background:var(--bg-alt);
+  }
+  .marquee-track{display:inline-flex;animation:scroll-left 34s linear infinite;}
+  .marquee-track span{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:700;
+    font-size:20px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--ink-dim);padding:0 28px;display:inline-flex;align-items:center;gap:28px;
+  }
+  .marquee-track span::after{content:'✳';color:var(--rust);font-size:14px;}
+  @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- cutline divider ---------- */
+  .cutline-wrap{padding:0;overflow:hidden;}
+  .cutline{width:100%;height:34px;display:block;}
+  .cutline line{stroke:var(--line-bright);stroke-width:1.5;stroke-dasharray:2 10;stroke-linecap:round;}
+
+  /* ---------- spec strip ---------- */
+  .spec-strip{padding:64px 0;border-bottom:1px solid var(--line);}
+  .spec-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .spec-item{background:var(--bg);padding:28px 24px;}
+  .spec-item .num{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+    font-size:40px;color:var(--mustard);display:block;margin-bottom:8px;
+  }
+  .spec-item .label{color:var(--ink-dim);font-size:12px;line-height:1.5;}
+
+  /* ---------- section heads ---------- */
+  .section-head{padding:120px 0 56px;}
+  .eyebrow{color:var(--rust-bright);margin-bottom:18px;display:block;}
+  .section-head h2{font-size:clamp(34px,5vw,58px);max-width:16ch;}
+  .section-head p{color:var(--ink-dim);max-width:52ch;margin-top:18px;font-size:16px;line-height:1.6;}
+
+  /* ---------- categories ---------- */
+  .categories{padding:0 0 40px;}
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .cat-card{
+    background:var(--bg);padding:44px 32px;min-height:340px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    position:relative;overflow:hidden;cursor:pointer;
+    transition:background .4s var(--ease);
+  }
+  .cat-card::before{
+    content:'';position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease);
+    background:radial-gradient(circle at 30% 20%, var(--accent,var(--rust)) 0%, transparent 60%);
+  }
+  .cat-card:hover::before{opacity:0.14;}
+  .cat-card:hover{background:var(--bg-alt);}
+  .cat-card .tag{color:var(--accent,var(--rust));margin-bottom:auto;}
+  .cat-card h3{font-size:32px;margin:20px 0 10px;color:var(--ink);position:relative;z-index:1;}
+  .cat-card p{color:var(--ink-dim);font-size:14px;line-height:1.55;position:relative;z-index:1;}
+  .cat-card .go{
+    margin-top:20px;display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink);position:relative;z-index:1;
+  }
+  .cat-card .go svg{transition:transform .35s var(--ease);}
+  .cat-card:hover .go svg{transform:translateX(6px);}
+
+  /* ---------- products ---------- */
+  .products{padding:100px 0 40px;}
+  .product-group{margin-bottom:64px;}
+  .group-head{
+    display:flex;align-items:baseline;gap:16px;margin-bottom:28px;
+    padding-bottom:16px;border-bottom:1px solid var(--line);
+  }
+  .group-head .swatch{width:14px;height:14px;border-radius:50%;background:var(--accent,var(--rust));flex-shrink:0;}
+  .group-head h3{font-size:26px;letter-spacing:0.01em;}
+  .group-head .count{color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .p-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;display:flex;flex-direction:column;
+    transform-style:preserve-3d;transition:border-color .3s var(--ease), transform .1s linear;
+    will-change:transform;
+  }
+  .p-card:hover{border-color:var(--line-bright);}
+  .p-swatch{
+    height:120px;border-radius:var(--radius);margin-bottom:18px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg, var(--accent,var(--rust)) 0%, var(--bg-alt) 130%);
+  }
+  .p-swatch::after{
+    content:'';position:absolute;inset:0;
+    background-image:repeating-linear-gradient(115deg, rgba(0,0,0,0.12) 0 2px, transparent 2px 7px);
+  }
+  .p-kicker{color:var(--ink-dim);margin-bottom:6px;}
+  .p-card h4{font-family:'Big Shoulders Display',sans-serif;font-weight:700;font-size:21px;text-transform:uppercase;margin-bottom:10px;}
+  .p-card p{color:var(--ink-dim);font-size:13.5px;line-height:1.55;margin-bottom:14px;flex:1;}
+  .p-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+  .p-tags span{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;
+    padding:5px 9px;border:1px solid var(--line-bright);border-radius:20px;color:var(--ink-dim);
+  }
+  .p-inquire{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:8px;color:var(--ink);
+    padding-top:14px;border-top:1px solid var(--line);
+    transition:color .3s var(--ease);
+  }
+  .p-inquire:hover{color:var(--mustard);}
+
+  /* ---------- about ---------- */
+  .about{padding:120px 0;border-top:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:80px;align-items:start;}
+  .about-figure{
+    aspect-ratio:4/5;border-radius:var(--radius);
+    background:
+      linear-gradient(160deg, rgba(193,68,14,0.25), transparent 55%),
+      linear-gradient(340deg, rgba(200,155,60,0.2), transparent 55%),
+      var(--panel);
+    border:1px solid var(--line);position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;padding:28px;
+  }
+  .about-figure .owner{position:relative;z-index:1;}
+  .about-figure .owner .mono{color:var(--mustard);}
+  .about-figure .owner strong{display:block;font-family:'Big Shoulders Display',sans-serif;font-size:24px;text-transform:uppercase;margin-top:6px;}
+  .about-body p{color:var(--ink-dim);font-size:16px;line-height:1.75;margin-bottom:20px;max-width:56ch;}
+  .about-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;}
+  .about-tags span{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;
+    padding:9px 14px;border:1px solid var(--line-bright);border-radius:20px;color:var(--ink-dim);
+  }
+
+  /* ---------- applications ---------- */
+  .applications{padding:100px 0;background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .app-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px;}
+  .app-item{
+    background:var(--bg-alt);padding:32px 20px;min-height:180px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:background .3s var(--ease);
+  }
+  .app-item:hover{background:var(--bg);}
+  .app-item svg{width:26px;height:26px;stroke:var(--mustard);}
+  .app-item span{font-size:13.5px;line-height:1.4;color:var(--ink);margin-top:20px;}
+
+  /* ---------- contact ---------- */
+  .contact{padding:120px 0;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .contact-panel{background:var(--bg);padding:48px;}
+  .contact-panel h3{font-size:26px;margin-bottom:24px;}
+  .c-row{padding:18px 0;border-bottom:1px solid var(--line);}
+  .c-row:last-child{border-bottom:none;}
+  .c-row .mono{color:var(--ink-dim);margin-bottom:6px;display:block;}
+  .c-row div.val{font-size:16px;line-height:1.5;}
+  .contact-panel.dark{background:var(--rust);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:20px;}
+  .contact-panel.dark .mono{color:rgba(255,255,255,0.75);}
+  .contact-panel.dark h3{font-size:34px;}
+  .contact-panel.dark .btn-ghost{border-color:rgba(255,255,255,0.5);color:#fff;}
+  .contact-panel.dark .btn-ghost:hover{background:rgba(255,255,255,0.12);border-color:#fff;}
+
+  /* ---------- footer ---------- */
+  footer{padding:56px 0 32px;border-top:1px solid var(--line);}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;padding-bottom:32px;}
+  .footer-col .mono{color:var(--ink-dim);margin-bottom:14px;display:block;}
+  .footer-col a,.footer-col div{display:block;color:var(--ink-dim);font-size:14px;margin-bottom:8px;transition:color .3s var(--ease);}
+  .footer-col a:hover{color:var(--ink);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;padding-top:24px;border-top:1px solid var(--line);
+    color:var(--ink-dim);font-size:12.5px;flex-wrap:wrap;gap:10px;
+  }
+
+  /* ---------- whatsapp float ---------- */
+  .wa-float{
+    position:fixed;bottom:26px;right:26px;z-index:150;
+    width:58px;height:58px;border-radius:50%;background:var(--rust);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    transition:transform .3s var(--ease), background .3s var(--ease);
+  }
+  .wa-float:hover{transform:scale(1.08);background:var(--rust-bright);}
+  .wa-float svg{width:26px;height:26px;fill:#fff;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(36px);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    nav ul,.nav-cta{display:none;}
+    .nav-toggle{display:block;}
+    .spec-grid{grid-template-columns:repeat(2,1fr);}
+    .cat-grid{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .app-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 20px;}
+    .product-grid{grid-template-columns:1fr;}
+    .hero-actions{flex-direction:column;}
+    .btn{justify-content:center;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .marquee-track{animation:none;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="logo"><span class="dot"></span>Industrial&nbsp;Felts</div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a class="nav-cta" href="https://wa.me/917045494611?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20your%20felt%2Ffoam%2Frubber%20stock." target="_blank" rel="noopener">Chat on WhatsApp</a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow mono"><span class="rule"></span>Nagpada, Mumbai — Est. Merchant</div>
+    <h1>Cut to your spec, <em>not the nearest one.</em></h1>
+    <p class="hero-sub">Compressed woolen felt, jute felt, foam and rubber sheet — stocked, cut and shipped from our workshop the same day you ask.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://wa.me/917045494611?text=Hi%2C%20I%27d%20like%20a%20quote." target="_blank" rel="noopener">Ask on WhatsApp →</a>
+      <a class="btn btn-ghost" href="#shop">Browse the shop floor</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span>Scroll</div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee">
+  <div class="marquee-track" id="marquee-track">
+    <span>Compressed Woolen Felt</span><span>Jute Felt</span><span>EVA Foam</span><span>EPE Foam</span><span>Hitlon Foam</span><span>EPDM Rubber</span><span>Felt Washers</span><span>Rackron Filter</span>
+  </div>
+</div>
+
+<div class="cutline-wrap"><svg class="cutline"><line x1="0" y1="17" x2="100%" y2="17"/></svg></div>
+
+<!-- ================= SPEC STRIP ================= -->
+<section class="spec-strip">
+  <div class="wrap">
+    <div class="spec-grid">
+      <div class="spec-item reveal"><span class="num">8+</span><span class="label mono">Material lines stocked</span></div>
+      <div class="spec-item reveal"><span class="num">01</span><span class="label mono">Workshop — 458 Sir J.J. Road, Nagpada</span></div>
+      <div class="spec-item reveal"><span class="num">24h</span><span class="label mono">Same-day WhatsApp quotes</span></div>
+      <div class="spec-item reveal"><span class="num">6d</span><span class="label mono">Open Mon–Sat, 10:00–19:30</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="categories" id="shop">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow mono">— The Shop Floor</span>
+      <h2>Three materials. Every size you'll ever need.</h2>
+      <p>Tap a category to jump to it below, or message us directly with a thickness, size or quantity — we'll confirm stock the same day.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal" style="--accent:var(--mustard)" onclick="document.getElementById('cat-felt').scrollIntoView({behavior:'smooth'})">
+        <span class="tag mono">01 · Felt</span>
+        <h3>Felt Sheets<br>&amp; Rolls</h3>
+        <p>Compressed woolen felt and jute felt — our founding line, cut to size for industrial, craft and décor use.</p>
+        <span class="go">View products <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="currentColor" stroke-width="1.4"/></svg></span>
+      </div>
+      <div class="cat-card reveal" style="--accent:var(--sage)" onclick="document.getElementById('cat-foam').scrollIntoView({behavior:'smooth'})">
+        <span class="tag mono">02 · Foam</span>
+        <h3>Foam<br>Sheets</h3>
+        <p>EVA, EPE and Hitlon foam — lightweight, flexible, and water or shock resistant.</p>
+        <span class="go">View products <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="currentColor" stroke-width="1.4"/></svg></span>
+      </div>
+      <div class="cat-card reveal" style="--accent:var(--rust)" onclick="document.getElementById('cat-rubber').scrollIntoView({behavior:'smooth'})">
+        <span class="tag mono">03 · Rubber</span>
+        <h3>Rubber<br>&amp; Washers</h3>
+        <p>Black rubber and EPDM sheet in various thicknesses, plus precision die-cut felt washers.</p>
+        <span class="go">View products <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="currentColor" stroke-width="1.4"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products">
+  <div class="wrap">
+
+    <div class="product-group" id="cat-felt">
+      <div class="group-head"><span class="swatch" style="--accent:var(--mustard);background:var(--mustard)"></span><h3>Felt Sheets &amp; Rolls</h3><span class="count mono">4 items</span></div>
+      <div class="product-grid">
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--mustard)"></div><span class="p-kicker mono">Roll · Natural Felt</span><h4>Felt Sheet</h4><p>Our core compressed woolen felt, produced in various densities for industrial and craft use.</p><div class="p-tags"><span>Gaskets</span><span>Filtration</span><span>Vibration Damping</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20the%20Felt%20Sheet." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--mustard)"></div><span class="p-kicker mono">Sheet · Craft Colouring</span><h4>Craft Felt</h4><p>Bright felt for arts, crafts and soft-board covering, available in a wide range of colours.</p><div class="p-tags"><span>Crafts</span><span>Soft Boards</span><span>Décor</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20Craft%20Felt." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--mustard)"></div><span class="p-kicker mono">Die-cut · Component</span><h4>Felt Washers</h4><p>Precision die-cut felt washers, made to standard or custom sizes for machine and furniture use.</p><div class="p-tags"><span>Sealing</span><span>Cushioning</span><span>Custom Sizes</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20Felt%20Washers." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--mustard)"></div><span class="p-kicker mono">Filtration · Shipping</span><h4>Rackron Filter</h4><p>Soft filtration felt used in shipping applications for protection and filtering.</p><div class="p-tags"><span>Filtration</span><span>Shipping</span><span>Protection</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20Rackron%20Filter." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+      </div>
+    </div>
+
+    <div class="product-group" id="cat-foam">
+      <div class="group-head"><span class="swatch" style="background:var(--sage)"></span><h3>Foam Sheets</h3><span class="count mono">3 items</span></div>
+      <div class="product-grid">
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--sage)"></div><span class="p-kicker mono">Sheet · Multi-colour</span><h4>EVA Rubber Sheet</h4><p>Lightweight, flexible sheets for cushioning, shock absorption and water resistance.</p><div class="p-tags"><span>Mats</span><span>Insoles</span><span>Packaging</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20EVA%20Rubber%20Sheet." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--sage)"></div><span class="p-kicker mono">Roll · Foam</span><h4>Hitlon Foam</h4><p>Closed-cell polyethylene/EVA foam roll, used widely for packaging and thermal insulation.</p><div class="p-tags"><span>Packaging</span><span>Insulation</span><span>Flooring</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20Hitlon%20Foam." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--sage)"></div><span class="p-kicker mono">Sheet · Waterproof</span><h4>EPE Foam</h4><p>Waterproof plastic foam, strong and ideal for packaging, plumbing and levelling surfaces.</p><div class="p-tags"><span>Packaging</span><span>Plumbing</span><span>Gaskets</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20EPE%20Foam." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+      </div>
+    </div>
+
+    <div class="product-group" id="cat-rubber">
+      <div class="group-head"><span class="swatch" style="background:var(--rust)"></span><h3>Rubber Sheets</h3><span class="count mono">1 item</span></div>
+      <div class="product-grid">
+        <div class="p-card reveal"><div class="p-swatch" style="--accent:var(--rust)"></div><span class="p-kicker mono">Sheet · Various Thickness</span><h4>Rubber / EPDM Sheet</h4><p>Black rubber sheet in various thicknesses for construction joint sealing and vibration damping.</p><div class="p-tags"><span>Sealing</span><span>Expansion Joints</span><span>Flooring</span></div><a class="p-inquire" href="https://wa.me/917045494611?text=Hi%2C%20I%27m%20interested%20in%20Rubber%2FEPDM%20Sheet." target="_blank" rel="noopener">Inquire on WhatsApp →</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="cutline-wrap"><svg class="cutline"><line x1="0" y1="17" x2="100%" y2="17"/></svg></div>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-figure reveal">
+        <div class="owner">
+          <span class="mono">Owner</span>
+          <strong>Burhannudin Zuzer Sariya</strong>
+        </div>
+      </div>
+      <div class="about-body reveal">
+        <span class="eyebrow mono">— Who We Are</span>
+        <h2 style="margin-bottom:24px;">Quality, precision and customer satisfaction, in every sheet.</h2>
+        <p>We manufacture felt, foam and rubber products using premium raw materials and advanced production techniques, from our workshop in Nagpada. Whether it's a standard size or a custom-cut solution, our team works to deliver exceptional craftsmanship, competitive pricing and timely delivery.</p>
+        <p>We've supplied felt, foam and rubber sheet materials to workshops, manufacturers and traders across Mumbai for generations — from gaskets and packaging to horse saddling and craft felt.</p>
+        <div class="about-tags">
+          <span>Industrial &amp; Automotive</span>
+          <span>Furniture &amp; Packaging</span>
+          <span>Craft, Décor &amp; Fashion</span>
+          <span>Sports, Music &amp; Medical</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLICATIONS ================= -->
+<section class="applications">
+  <div class="wrap">
+    <div class="section-head reveal" style="padding-top:0;">
+      <span class="eyebrow mono">— Why Felt</span>
+      <h2>A material for almost every industry.</h2>
+      <p>Felt is non-woven, which makes it uniquely good at cushioning, insulating, protecting and lasting — here's where our customers put it to work.</p>
+    </div>
+    <div class="app-grid">
+      <div class="app-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10L12 4L20 10V20H4Z" stroke-width="1.5"/><path d="M9 20V14H15V20" stroke-width="1.5"/></svg><span>Industrial insulation &amp; cushioning</span></div>
+      <div class="app-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 17H3V11L5 6H16L19 11H21V17H19M5 17C5 18.1 5.9 19 7 19C8.1 19 9 18.1 9 17M5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17M9 17H15M15 17C15 18.1 15.9 19 17 19C18.1 19 19 18.1 19 17M15 17C15 15.9 15.9 15 17 15C18.1 15 19 15.9 19 17" stroke-width="1.5"/></svg><span>Automotive components &amp; lining</span></div>
+      <div class="app-item reveal"><svg viewBox="0 0 24 24" fill="none"><path d="M3 8L12 3L21 8V16L12 21L3 16V8Z" stroke-width="1.5"/></svg><span>Furniture protection &amp; leg pads</span></div>
+      <div class="app-item reveal"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" stroke-width="1.5"/><path d="M8 7V4H16V7" stroke-width="1.5"/></svg><span>Packaging &amp; construction joints</span></div>
+      <div class="app-item reveal"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.5"/><path d="M12 7V12L15 15" stroke-width="1.5"/></svg><span>Craft, décor, sports &amp; medical</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal" style="padding-top:0;">
+      <span class="eyebrow mono">— Get In Touch</span>
+      <h2>Send a photo. Get a price.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-panel reveal">
+        <h3>Visit or call</h3>
+        <div class="c-row"><span class="mono">Workshop</span><div class="val">458, Sir Jamshedji Jeejeeboy Road,<br>Shop No. 8, Opp. J I Hospital,<br>Nagpada, Mumbai 400008</div></div>
+        <div class="c-row"><span class="mono">Phone</span><div class="val">022-2346 3636</div></div>
+        <div class="c-row"><span class="mono">Hours</span><div class="val">Monday – Saturday, 10:00 AM – 7:30 PM</div></div>
+        <a class="btn btn-ghost" style="margin-top:24px;" href="https://www.google.com/maps/search/?api=1&query=458+Sir+J.J.+Road+Nagpada+Mumbai+400008" target="_blank" rel="noopener">Get directions →</a>
+      </div>
+      <div class="contact-panel dark reveal">
+        <span class="mono">Fastest way to reach us</span>
+        <h3>Chat on WhatsApp</h3>
+        <p style="max-width:34ch;line-height:1.6;">Tell us the thickness, size and quantity — we'll reply with stock and pricing the same day.</p>
+        <a class="btn btn-ghost" href="https://wa.me/917045494611?text=Hi%2C%20I%27d%20like%20a%20quote." target="_blank" rel="noopener">+91 70454 94611 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="mono">Industrial Felts</span>
+        <div style="max-width:32ch;">Compressed woolen felt, jute felt, foam and rubber merchant — Nagpada, Mumbai, since generations.</div>
+      </div>
+      <div class="footer-col">
+        <span class="mono">Navigate</span>
+        <a href="#home">Home</a><a href="#shop">Shop</a><a href="#about">About Us</a><a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <span class="mono">Reach Us</span>
+        <div>022-2346 3636</div>
+        <a href="https://wa.me/917045494611" target="_blank" rel="noopener">WhatsApp +91 70454 94611</a>
+        <div>458, Sir J.J. Road, Nagpada, Mumbai 400008</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Industrial Felts, Mumbai.</span>
+      <span>Owner: Burhannudin Zuzer Sariya</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/917045494611?text=Hi%2C%20I%27d%20like%20a%20quote." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.4.7 4.6 1.9 6.5L4 29l7.7-1.9c1.8 1 3.9 1.6 6.1 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.6 1.2 1.2-4.5-.2-.4C5.6 17.8 5.1 16.4 5.1 15c0-6 4.9-10.9 10.9-10.9S26.9 9 26.9 15 22 24.8 16 24.8zm5.9-8.2c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script type="module">
+import * as THREE from 'three';
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---------- scroll reveals ---------- */
+gsap.utils.toArray('.reveal').forEach((el)=>{
+  gsap.to(el,{
+    opacity:1,y:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%'}
+  });
+});
+
+/* ---------- cutlines draw-on ---------- */
+gsap.utils.toArray('.cutline line').forEach((line)=>{
+  const len = line.getBoundingClientRect().width || 1200;
+  gsap.fromTo(line,{strokeDashoffset:len},{
+    strokeDashoffset:0,ease:'none',
+    scrollTrigger:{trigger:line,start:'top 95%',end:'top 60%',scrub:0.6}
+  });
+});
+
+/* ---------- product card tilt ---------- */
+document.querySelectorAll('.p-card').forEach((card)=>{
+  card.addEventListener('mousemove',(e)=>{
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - 0.5;
+    const y = (e.clientY - r.top)/r.height - 0.5;
+    card.style.transform = `perspective(700px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-2px)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='perspective(700px) rotateY(0) rotateX(0)';});
+});
+
+/* ---------- mobile nav toggle (simple anchor scroll, no menu panel needed at this scope) ---------- */
+document.querySelector('.nav-toggle')?.addEventListener('click',()=>{
+  const ul = document.querySelector('nav ul');
+  const cta = document.querySelector('.nav-cta');
+  [ul,cta].forEach(el=>{
+    if(!el) return;
+    el.style.display = (el.style.display === 'flex') ? 'none' : 'flex';
+    if(el===cta) el.style.display = (el.style.display==='flex')?'inline-flex':'flex';
+  });
+});
+
+/* ================= THREE.JS HERO ================= */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.getElementById('hero-canvas');
+
+if(!reduceMotion && canvas){
+  const heroEl = document.querySelector('.hero');
+  let W = heroEl.clientWidth, H = heroEl.clientHeight;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x14120f, 0.05);
+
+  const camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 100);
+  camera.position.set(0, 0.6, 9);
+
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+  renderer.setSize(W, H);
+
+  // lights
+  scene.add(new THREE.AmbientLight(0x554433, 1.1));
+  const key = new THREE.DirectionalLight(0xffe9c9, 1.4);
+  key.position.set(5, 6, 6);
+  scene.add(key);
+  const rim = new THREE.PointLight(0xe2570f, 6, 20);
+  rim.position.set(-6, -1, -2);
+  scene.add(rim);
+  const rim2 = new THREE.PointLight(0xc89b3c, 4, 16);
+  rim2.position.set(4, -3, 3);
+  scene.add(rim2);
+
+  // material rolls: cylinders lying horizontal
+  const colors = [0xc1440e, 0xc89b3c, 0x63744f];
+  const rolls = new THREE.Group();
+  const rollData = [];
+
+  colors.forEach((col, i)=>{
+    const radius = 1.0 + i*0.12;
+    const geo = new THREE.CylinderGeometry(radius, radius, 2.6, 40, 1, false);
+    const mat = new THREE.MeshStandardMaterial({color:col, roughness:0.75, metalness:0.12});
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.rotation.z = Math.PI/2;
+
+    const x = (i-1)*3.1;
+    const y = Math.sin(i)*0.6 - 0.2;
+    const z = -i*1.4;
+    mesh.position.set(x, y, z);
+    rolls.add(mesh);
+
+    // end-cap ring accent (die-cut edge look)
+    const ringGeo = new THREE.TorusGeometry(radius, 0.03, 8, 40);
+    const ringMat = new THREE.MeshStandardMaterial({color:0xeee7da, roughness:0.4, metalness:0.3});
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.position.set(x + 1.32, y, z);
+    ring.rotation.y = Math.PI/2;
+    rolls.add(ring);
+
+    rollData.push({mesh, ring, baseY:y, speed:0.15+i*0.05, phase:i*1.7});
+  });
+  scene.add(rolls);
+
+  // faint grid "cutting table" floor
+  const grid = new THREE.GridHelper(30, 30, 0x2a2822, 0x201d18);
+  grid.position.y = -2.6;
+  scene.add(grid);
+
+  // mouse parallax
+  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+  window.addEventListener('mousemove', (e)=>{
+    mouseX = (e.clientX / window.innerWidth) - 0.5;
+    mouseY = (e.clientY / window.innerHeight) - 0.5;
+  });
+
+  const clock = new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+
+    targetX += (mouseX - targetX) * 0.04;
+    targetY += (mouseY - targetY) * 0.04;
+
+    rolls.rotation.y = targetX * 0.35;
+    camera.position.x = targetX * 0.8;
+    camera.position.y = 0.6 - targetY * 0.5;
+    camera.lookAt(0,0,-1);
+
+    rollData.forEach((r)=>{
+      r.mesh.rotation.x = t * (r.speed);
+      r.mesh.position.y = r.baseY + Math.sin(t*0.6 + r.phase) * 0.12;
+      r.ring.position.y = r.mesh.position.y;
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // scroll-out effect
+  gsap.to(rolls.position, {
+    y: -3, z: 2,
+    ease:'none',
+    scrollTrigger:{trigger:heroEl, start:'top top', end:'bottom top', scrub:0.5}
+  });
+  gsap.to(rolls.scale, {
+    x:0.7,y:0.7,z:0.7,
+    ease:'none',
+    scrollTrigger:{trigger:heroEl, start:'top top', end:'bottom top', scrub:0.5}
+  });
+
+  window.addEventListener('resize', ()=>{
+    W = heroEl.clientWidth; H = heroEl.clientHeight;
+    camera.aspect = W/H;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W,H);
+  });
+} else if(canvas){
+  canvas.style.background = 'radial-gradient(circle at 30% 30%, rgba(193,68,14,0.25), transparent 60%), radial-gradient(circle at 70% 70%, rgba(200,155,60,0.18), transparent 60%)';
+}
+</script>
+
+</body>
+</html>
