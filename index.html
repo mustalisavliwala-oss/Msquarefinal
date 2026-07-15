@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MSquare Hardwares — Precision In Every Detail</title>
+<meta name="description" content="MSquare Hardwares — premium furniture hardware & interior solutions based in Mumbai." />
+
+<!-- Google Fonts: Cormorant Garamond (headings) + Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #F5EFE6;          /* warm cream */
+    --gold: #8B6914;        /* deep bronze-gold */
+    --gold-light: #C4A35A;  /* light gold */
+    --text: #3D2B0E;        /* dark brown */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Subtle linen / noise texture layered over the cream background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    /* fine fabric weave */
+    background-image:
+      repeating-linear-gradient(45deg, rgba(139,105,20,0.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(-45deg, rgba(139,105,20,0.025) 0 1px, transparent 1px 3px);
+    background-size: 4px 4px, 4px 4px;
+  }
+  /* Soft grain on top of the weave */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* ---------------- NAVBAR ---------------- */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6vw;
+    background: rgba(245, 239, 230, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139, 105, 20, 0.35);
+    opacity: 0;                 /* hidden until GSAP reveals it */
+    transform: translateY(-100%);
+    will-change: opacity, transform;
+  }
+
+  .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .navbar__brand img { width: 34px; height: 34px; display: block; object-fit: contain; }
+  .navbar__brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    list-style: none;
+  }
+  .navbar__links a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.25s ease;
+  }
+  .navbar__links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 0; height: 1.5px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .navbar__links a:hover { color: var(--gold); }
+  .navbar__links a:hover::after { width: 100%; }
+
+  .navbar__toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 6px;
+  }
+  .navbar__toggle span {
+    width: 24px; height: 2px;
+    background: var(--gold);
+    display: block;
+    transition: 0.3s ease;
+  }
+
+  /* ---------------- HERO ---------------- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Logo mark */
+  .hero__logo {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    perspective: 800px;
+    will-change: transform, opacity;
+  }
+  .hero__logo-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .hero__logo img {
+    width: 100%; height: 100%;
+    display: block; object-fit: contain;
+    filter: drop-shadow(0 14px 22px rgba(61, 43, 14, 0.28));
+    -webkit-user-select: none; user-select: none;
+  }
+  /* light gleam sweeping across the brass, clipped to the logo shape */
+  .hero__gleam {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    -webkit-mask: url("logo.png") center / contain no-repeat;
+            mask: url("logo.png") center / contain no-repeat;
+    background: linear-gradient(115deg,
+      rgba(255,250,235,0) 42%,
+      rgba(255,252,240,0.75) 50%,
+      rgba(255,250,235,0) 58%);
+    background-size: 280% 280%;
+    background-position: 150% 150%;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    animation: gleam 5.5s ease-in-out 2.2s infinite;
+  }
+  @keyframes gleam {
+    0%   { background-position: 150% 150%; }
+    45%  { background-position: -50% -50%; }
+    100% { background-position: -50% -50%; }
+  }
+
+  .hero__brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 1.04;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-top: 26px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .hero__brand .accent { color: var(--gold); }
+
+  .hero__tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.05rem, 3vw, 1.7rem);
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-top: 28px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .hero__line {
+    width: 220px;
+    max-width: 60vw;
+    height: 1.5px;
+    margin-top: 26px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Scroll cue */
+  .hero__scroll {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    will-change: opacity;
+  }
+  .hero__scroll-text {
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .hero__scroll-arrow {
+    width: 22px; height: 22px;
+    border-right: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: rotate(45deg);
+    animation: bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+    50%      { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+  }
+
+  /* ---------------- PLACEHOLDER SECTIONS ---------------- */
+  .section {
+    position: relative;
+    z-index: 1;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 6vw;
+    border-top: 1px solid rgba(139, 105, 20, 0.15);
+  }
+  .section__eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .section__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .section__text {
+    max-width: 560px;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(61, 43, 14, 0.7);
+  }
+
+  /* ---------------- PRODUCT CATALOG ---------------- */
+  .catalog {
+    position: relative;
+    z-index: 1;
+    padding: 110px 6vw 96px;
+    border-top: 1px solid rgba(139, 105, 20, 0.15);
+  }
+  .catalog__head {
+    max-width: 720px;
+    margin: 0 auto 60px;
+    text-align: center;
+  }
+  .catalog__intro {
+    max-width: 560px;
+    margin: 14px auto 0;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(61, 43, 14, 0.7);
+  }
+
+  /* ---------- interactive catalogue ---------- */
+  .cat { max-width: 1180px; margin: 0 auto; }
+  .cat__bar {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    justify-content: space-between; margin-bottom: 20px;
+  }
+  .cat__search { position: relative; flex: 1 1 280px; max-width: 420px; }
+  .cat__search input {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+    background: rgba(255,255,255,0.6); border: 1px solid rgba(139,105,20,0.28);
+    border-radius: 999px; padding: 12px 18px 12px 42px; outline: none;
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .cat__search input::placeholder { color: rgba(61,43,14,0.45); }
+  .cat__search input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,163,90,0.18); }
+  .cat__search svg {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2;
+  }
+  .cat__crumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; color: rgba(61,43,14,0.7); }
+  .cat__crumbs button { background: none; border: none; cursor: pointer; font: inherit; color: var(--gold); padding: 0; }
+  .cat__crumbs button:hover { text-decoration: underline; }
+  .cat__crumbs .sep { color: rgba(139,105,20,0.5); }
+  .cat__crumbs .current { color: var(--text); font-weight: 500; }
+
+  .cat__back {
+    display: inline-flex; align-items: center; gap: 8px; background: none;
+    border: 1px solid rgba(139,105,20,0.3); cursor: pointer; font: inherit;
+    font-size: 0.74rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text);
+    padding: 8px 16px; border-radius: 999px; margin-bottom: 22px;
+    transition: background .25s ease, border-color .25s ease;
+  }
+  .cat__back:hover { background: rgba(196,163,90,0.14); border-color: var(--gold); }
+  .cat__back[hidden] { display: none; }
+
+  .cat__stage { will-change: opacity, transform; }
+  @keyframes catEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .cat__stage.enter { animation: catEnter .45s cubic-bezier(.2,.7,.2,1) both; }
+  .cat__resulthint { font-size: 0.82rem; color: rgba(61,43,14,0.6); margin-bottom: 16px; }
+  .cat__empty { padding: 48px 0; text-align: center; color: rgba(61,43,14,0.6); font-size: 0.95rem; }
+
+  /* big category cards */
+  .cat__cats { display: grid; gap: 24px; grid-template-columns: repeat(2, 1fr); }
+  .bigcard {
+    position: relative; overflow: hidden; cursor: pointer; text-align: left;
+    border: 1px solid rgba(139,105,20,0.25); border-radius: 18px;
+    background: radial-gradient(140% 120% at 100% 0%, rgba(196,163,90,0.18), transparent 60%), rgba(255,255,255,0.5);
+    padding: 42px 34px; min-height: 240px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease, border-color .4s ease;
+  }
+  .bigcard:hover { transform: translateY(-6px); box-shadow: 0 26px 56px -28px rgba(61,43,14,0.5); border-color: var(--gold); }
+  .bigcard__index { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: rgba(196,163,90,0.65); line-height: 1; }
+  .bigcard__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.45rem, 3vw, 2.1rem); color: var(--text); margin-top: 14px; }
+  .bigcard__meta { margin-top: 10px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .bigcard__go { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.76rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
+  .bigcard__go::after { content: "\2192"; transition: transform .3s ease; }
+  .bigcard:hover .bigcard__go::after { transform: translateX(5px); }
+
+  /* subcategory tiles */
+  .cat__grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .subtile {
+    position: relative; cursor: pointer; text-align: left;
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 14px; padding: 24px 20px; min-height: 118px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+  }
+  .subtile::before { content: ""; position: absolute; left: 20px; top: 0; width: 34px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+  .subtile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); border-color: var(--gold); }
+  .subtile__title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.18rem; color: var(--text); }
+  .subtile__meta { margin-top: 14px; font-size: 0.64rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+
+  /* product cards */
+  .cat__products { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .pcard {
+    position: relative; display: flex; flex-direction: column; overflow: hidden;
+    background: rgba(255,255,255,0.55); border: 1px solid rgba(139,105,20,0.18); border-radius: 14px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+  }
+  .pcard::before {
+    content: ""; position: absolute; left: 20px; top: 0; width: 34px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .pcard:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); border-color: rgba(139,105,20,0.4); }
+  .pcard__body { padding: 20px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  .pcard__name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.04rem; line-height: 1.25; color: var(--text); }
+  .pcard__spec { margin-top: 5px; font-size: 0.73rem; line-height: 1.45; color: rgba(61,43,14,0.62); flex: 1; }
+  .pcard__wa {
+    margin-top: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    width: 100%; border: none; cursor: pointer; font-family: inherit;
+    text-decoration: none; font-size: 0.74rem; font-weight: 600; letter-spacing: .3px; color: #fff;
+    background: #1faf54; border-radius: 999px; padding: 10px 12px; transition: background .25s ease;
+  }
+  .pcard__wa:hover { background: #178f44; }
+  .pcard__wa svg { width: 15px; height: 15px; fill: #fff; }
+
+  /* ---------- contact ---------- */
+  .contact__grid {
+    width: 100%; max-width: 980px; margin: 42px auto 0; text-align: left;
+    display: grid; gap: 26px; grid-template-columns: 1.05fr 0.95fr;
+  }
+  .contact__owners { display: grid; gap: 18px; align-content: start; }
+  .owner {
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 14px; padding: 22px 22px;
+  }
+  .owner__name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.3rem; color: var(--text); }
+  .owner__role { font-size: 0.64rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-top: 3px; }
+  .owner__phone { margin-top: 12px; font-size: 1.02rem; color: var(--text); letter-spacing: .4px; }
+  .owner__actions { display: flex; gap: 10px; margin-top: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none; cursor: pointer;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: .4px; padding: 9px 16px;
+    border-radius: 999px; border: 1px solid transparent; transition: background .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .btn--wa { background: #1faf54; color: #fff; }
+  .btn--wa:hover { background: #178f44; }
+  .btn--call { background: transparent; color: var(--text); border-color: rgba(139,105,20,0.35); }
+  .btn--call:hover { background: rgba(196,163,90,0.14); border-color: var(--gold); }
+  .contact__info { list-style: none; display: flex; flex-direction: column; gap: 20px; padding: 4px 0; }
+  .contact__info li { display: block; }
+  .contact__label { display: block; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; font-weight: 600; }
+  .contact__info a, .contact__value { color: var(--text); text-decoration: none; line-height: 1.5; }
+  .contact__info a { border-bottom: 1px solid rgba(139,105,20,0.3); }
+  .contact__info a:hover { color: var(--gold); }
+
+  /* ---------- enquiry modal (choose owner) ---------- */
+  .enq { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .enq[hidden] { display: none; }
+  .enq__backdrop { position: absolute; inset: 0; background: rgba(26,16,6,0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity .22s ease; }
+  .enq.open .enq__backdrop { opacity: 1; }
+  .enq__box {
+    position: relative; z-index: 1; width: 100%; max-width: 420px;
+    background: var(--bg); border: 1px solid rgba(139,105,20,0.3); border-radius: 18px;
+    padding: 30px 26px 26px; text-align: center;
+    box-shadow: 0 30px 70px -30px rgba(26,16,6,0.6);
+    transform: translateY(16px) scale(0.97); opacity: 0; transition: transform .24s cubic-bezier(.2,.7,.2,1), opacity .24s ease;
+  }
+  .enq.open .enq__box { transform: none; opacity: 1; }
+  .enq__x { position: absolute; top: 12px; right: 14px; background: none; border: none; cursor: pointer; font-size: 1.5rem; line-height: 1; color: rgba(61,43,14,0.6); }
+  .enq__x:hover { color: var(--gold); }
+  .enq__eyebrow { font-size: 0.64rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .enq__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.4rem; color: var(--text); margin-top: 8px; }
+  .enq__product { margin-top: 6px; font-size: 0.86rem; color: rgba(61,43,14,0.7); font-style: italic; min-height: 1em; }
+  .enq__opts { display: grid; gap: 12px; margin-top: 22px; }
+  .enq__opt {
+    display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none;
+    background: #1faf54; color: #fff; border-radius: 12px; padding: 13px 16px; transition: background .25s ease, transform .2s ease;
+  }
+  .enq__opt:hover { background: #178f44; transform: translateY(-2px); }
+  .enq--call .enq__opt { background: var(--gold); }
+  .enq--call .enq__opt:hover { background: #6f540f; }
+  .enq__optname { font-weight: 600; font-size: 0.98rem; }
+  .enq__optnum { font-size: 0.78rem; opacity: 0.9; letter-spacing: .5px; }
+
+  /* ---------- footer ---------- */
+  .footer {
+    position: relative; z-index: 1; border-top: 1px solid rgba(139,105,20,0.2);
+    padding: 46px 6vw 40px; text-align: center;
+  }
+  .footer__brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.5rem; color: var(--text); }
+  .footer__brand .accent { color: var(--gold); }
+  .footer__tag { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); margin-top: 4px; }
+  .footer__line { max-width: 620px; margin: 16px auto 0; font-size: 0.86rem; line-height: 1.7; color: rgba(61,43,14,0.7); }
+  .footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 18px; }
+  .footer__links a { color: var(--text); text-decoration: none; font-size: 0.84rem; border-bottom: 1px solid rgba(139,105,20,0.3); }
+  .footer__links a:hover { color: var(--gold); }
+  .footer__copy { margin-top: 22px; font-size: 0.72rem; letter-spacing: .5px; color: rgba(61,43,14,0.55); }
+
+  /* ---------- content bands & cards ---------- */
+  .band { position: relative; z-index: 1; padding: 60px 6vw; border-top: 1px solid rgba(139,105,20,0.15); }
+
+  .stats { background: linear-gradient(180deg, rgba(196,163,90,0.12), rgba(196,163,90,0.04)); }
+  .stats__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+  .stat__num { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); color: var(--gold); line-height: 1; }
+  .stat__label { display: block; margin-top: 8px; font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(61,43,14,0.7); font-weight: 600; }
+
+  .cardgrid { width: 100%; max-width: 1100px; margin: 38px auto 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); text-align: left; }
+  .card { position: relative; background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2); border-radius: 14px; padding: 26px 22px; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(61,43,14,0.45); border-color: rgba(139,105,20,0.4); }
+  .card__num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.5rem; color: var(--gold-light); line-height: 1; }
+  .card__title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: var(--text); margin-top: 8px; }
+  .card__text { margin-top: 8px; font-size: 0.9rem; line-height: 1.6; color: rgba(61,43,14,0.7); }
+
+  .tcard { position: relative; background: rgba(255,255,255,0.5); border: 1px solid rgba(139,105,20,0.2); border-radius: 14px; padding: 28px 24px; }
+  .tcard__quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08rem; line-height: 1.5; color: var(--text); }
+  .tcard__quote::before { content: "\201C"; color: var(--gold-light); font-size: 2rem; line-height: 0; vertical-align: -0.35em; margin-right: 3px; }
+  .tcard__who { margin-top: 16px; font-size: 0.82rem; color: var(--gold); font-weight: 600; letter-spacing: .4px; }
+  .tcard__role { color: rgba(61,43,14,0.6); font-weight: 400; }
+
+  .cta { background: linear-gradient(135deg, rgba(139,105,20,0.13), rgba(196,163,90,0.10)); text-align: center; }
+  .cta__title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.8rem, 4.5vw, 2.7rem); color: var(--text); max-width: 720px; margin: 0 auto; line-height: 1.15; }
+  .cta__text { max-width: 560px; margin: 14px auto 0; font-size: 1rem; line-height: 1.7; color: rgba(61,43,14,0.72); }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 26px; }
+  .cta .btn { padding: 13px 26px; font-size: 0.86rem; }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 720px) {
+    .navbar { padding: 14px 6vw; }
+    .navbar__links {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh;
+      width: min(72vw, 300px);
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      background: rgba(245, 239, 230, 0.96);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-left: 1px solid rgba(139, 105, 20, 0.3);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .navbar__links.open { transform: translateX(0); }
+    .navbar__toggle { display: flex; z-index: 60; }
+    .hero__logo { width: 112px; height: 112px; }
+    .hero__brand { margin-top: 30px; }
+    .hero__tagline { margin-top: 32px; }
+
+    .catalog { padding: 80px 6vw 72px; }
+    .cat__cats { grid-template-columns: 1fr; gap: 16px; }
+    .bigcard { padding: 30px 24px; min-height: 190px; }
+    .cat__grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .subtile { padding: 18px 16px; min-height: 100px; }
+    .subtile__title { font-size: 1.04rem; }
+    .cat__products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+    .pcard__name { font-size: 0.96rem; }
+    .contact__grid { grid-template-columns: 1fr; gap: 20px; }
+    .band { padding: 46px 6vw; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 24px 14px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" aria-label="Primary">
+    <a class="navbar__brand" href="#top" aria-label="MSquare Hardwares home">
+      <!-- compact mark -->
+      <img src="logo.png" alt="" aria-hidden="true" width="34" height="34" />
+      <span class="navbar__brand-name">MSquare Hardwares</span>
+    </a>
+
+    <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="navbar__links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <div class="hero__inner">
+
+      <!-- Logo mark — the actual MSquare brass emblem, background removed -->
+      <div class="hero__logo" id="heroLogo">
+        <div class="hero__logo-inner" id="heroLogoInner">
+          <img src="logo.png" alt="MSquare Hardwares logo" width="420" height="420" draggable="false" />
+          <span class="hero__gleam" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <h1 class="hero__brand" id="heroBrand">M<span class="accent">Square</span> Hardwares</h1>
+
+      <p class="hero__tagline" id="heroTagline">Precision In Every Detail.</p>
+
+      <div class="hero__line" id="heroLine" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero__scroll" id="heroScroll" aria-hidden="true">
+      <span class="hero__scroll-text">Scroll</span>
+      <span class="hero__scroll-arrow"></span>
+    </div>
+  </header>
+
+  <!-- ===================== PLACEHOLDER SECTIONS ===================== -->
+  <section class="section" id="about">
+    <p class="section__eyebrow">Who We Are</p>
+    <h2 class="section__title">About MSquare</h2>
+    <p class="section__text">MSquare Hardwares is Mumbai's destination for premium furniture hardware &amp; interior solutions. Founded by Mehlam Ratlam and Mustafa Indore, we bring precision, quality and a curated range of fittings and locks to homes, kitchens and interiors — guided by a single principle: precision in every detail.</p>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="band stats" aria-label="MSquare at a glance">
+    <div class="stats__grid">
+      <div class="stat"><span class="stat__num">200+</span><span class="stat__label">Products</span></div>
+      <div class="stat"><span class="stat__num">20+</span><span class="stat__label">Categories</span></div>
+      <div class="stat"><span class="stat__num">100%</span><span class="stat__label">Genuine Products</span></div>
+      <div class="stat"><span class="stat__num">Mumbai</span><span class="stat__label">Our Showroom</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY MSQUARE ===================== -->
+  <section class="section" id="why">
+    <p class="section__eyebrow">Why MSquare</p>
+    <h2 class="section__title">Built on Precision &amp; Trust</h2>
+    <p class="section__text">From a single handle to a full project order, here's why interior professionals and homeowners across Mumbai rely on MSquare.</p>
+    <div class="cardgrid">
+      <article class="card"><div class="card__num">01</div><h3 class="card__title">Premium Quality</h3><p class="card__text">Carefully selected hardware engineered to last — smooth in action, durable and finished to perfection.</p></article>
+      <article class="card"><div class="card__num">02</div><h3 class="card__title">Everything Under One Roof</h3><p class="card__text">Furniture hardware, modular kitchen fittings and a full line of locks — all from a single trusted supplier.</p></article>
+      <article class="card"><div class="card__num">03</div><h3 class="card__title">Trusted Brands</h3><p class="card__text">Genuine products from established names, so you get reliability and after-sales confidence every time.</p></article>
+      <article class="card"><div class="card__num">04</div><h3 class="card__title">Expert Guidance</h3><p class="card__text">Years of hands-on experience to help you choose the right fitting for every application.</p></article>
+      <article class="card"><div class="card__num">05</div><h3 class="card__title">Bulk &amp; Project Supply</h3><p class="card__text">Stock depth and competitive pricing for contractors, builders and large modular projects.</p></article>
+      <article class="card"><div class="card__num">06</div><h3 class="card__title">After-Sales Support</h3><p class="card__text">We're here long after the purchase — for replacements, advice and repeat orders.</p></article>
+    </div>
+  </section>
+
+  <section class="catalog" id="products">
+    <div class="catalog__head">
+      <p class="section__eyebrow">What We Offer</p>
+      <h2 class="section__title">Product Catalogue</h2>
+      <p class="catalog__intro">Explore our complete range — precision furniture hardware &amp; modular kitchen fittings, and a full line of locks. Tap a category to browse.</p>
+    </div>
+
+    <div class="cat" id="catalogue">
+      <div class="cat__bar">
+        <nav class="cat__crumbs" id="catCrumbs" aria-label="Breadcrumb"></nav>
+        <div class="cat__search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input id="catSearch" type="search" placeholder="Search products…" aria-label="Search products" autocomplete="off" />
+        </div>
+      </div>
+      <button class="cat__back" id="catBack" hidden>&larr; Back</button>
+      <div class="cat__stage" id="catStage"></div>
+    </div>
+
+  </section>
+
+  <!-- ===================== WHO WE SERVE ===================== -->
+  <section class="section" id="clients">
+    <p class="section__eyebrow">Who We Serve</p>
+    <h2 class="section__title">Trusted by the Trade</h2>
+    <p class="section__text">From large interior projects to a single home renovation, MSquare supplies the people who build great spaces.</p>
+    <div class="cardgrid">
+      <article class="card"><h3 class="card__title">Architects</h3><p class="card__text">Specification-grade hardware and finishes for refined, lasting interiors.</p></article>
+      <article class="card"><h3 class="card__title">Interior Designers</h3><p class="card__text">A curated range to match every concept, palette and budget.</p></article>
+      <article class="card"><h3 class="card__title">Contractors &amp; Builders</h3><p class="card__text">Reliable bulk supply with the stock depth to keep projects on schedule.</p></article>
+      <article class="card"><h3 class="card__title">Modular Kitchen Makers</h3><p class="card__text">Complete fittings, baskets and mechanisms for modern modular kitchens.</p></article>
+      <article class="card"><h3 class="card__title">Carpenters</h3><p class="card__text">Everyday hardware and locks, always in stock and ready to fit.</p></article>
+      <article class="card"><h3 class="card__title">Homeowners</h3><p class="card__text">Friendly guidance to find exactly the right fitting for your home.</p></article>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section" id="process">
+    <p class="section__eyebrow">How It Works</p>
+    <h2 class="section__title">Ordering Made Simple</h2>
+    <p class="section__text">No complicated process — browse, message us, and we'll handle the rest.</p>
+    <div class="cardgrid">
+      <article class="card"><div class="card__num">01</div><h3 class="card__title">Browse the Catalogue</h3><p class="card__text">Explore our categories and sub-sections to find the products you need.</p></article>
+      <article class="card"><div class="card__num">02</div><h3 class="card__title">Enquire on WhatsApp</h3><p class="card__text">Tap enquire on any product and message a co-founder directly.</p></article>
+      <article class="card"><div class="card__num">03</div><h3 class="card__title">Get a Quote</h3><p class="card__text">We'll confirm availability and share the best pricing for your order.</p></article>
+      <article class="card"><div class="card__num">04</div><h3 class="card__title">Delivery &amp; Support</h3><p class="card__text">Collect from our showroom or arrange delivery — with support after the sale.</p></article>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section" id="testimonials">
+    <p class="section__eyebrow">Testimonials</p>
+    <h2 class="section__title">What Our Clients Say</h2>
+    <div class="cardgrid">
+      <article class="tcard"><p class="tcard__quote">The quality and range are exactly what my projects need. MSquare has become my first call for hardware.</p><p class="tcard__who">Ibrahim<span class="tcard__role"> · Interior Designer, Bandra</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Fast quotes and dependable stock for bulk orders. They never let my sites wait.</p><p class="tcard__who">Khuzema<span class="tcard__role"> · Contractor, Mumbra</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Helped me pick the perfect handles and hinges for my new kitchen. Very patient and genuine.</p><p class="tcard__who">Moiz<span class="tcard__role"> · Homeowner, Bhendi Bazar</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Good prices and everything available under one roof. Saves me running around the market.</p><p class="tcard__who">Abdul<span class="tcard__role"> · Carpenter, Kurla</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Their kitchen baskets and channels are top quality. My clients are always happy.</p><p class="tcard__who">Mustafa<span class="tcard__role"> · Modular Kitchen Maker, Mira Road</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Reliable supply and honest dealing — exactly what you want from a hardware partner.</p><p class="tcard__who">Murtaza<span class="tcard__role"> · Builder, Andheri</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Specification-grade fittings with a premium finish. Highly recommended.</p><p class="tcard__who">Yusuf<span class="tcard__role"> · Architect, Worli</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Beautiful range of locks and handles. The team really knows their products.</p><p class="tcard__who">Taha<span class="tcard__role"> · Interior Designer, Bhayandar</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Bought soft-close hinges and drawer systems — smooth and solid. Worth every rupee.</p><p class="tcard__who">Husain<span class="tcard__role"> · Homeowner, Mahim</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Great service on WhatsApp — quick replies and timely delivery every time.</p><p class="tcard__who">Aliasger<span class="tcard__role"> · Contractor, Govandi</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Genuine products and fair rates. I've been buying from them for years.</p><p class="tcard__who">Juzer<span class="tcard__role"> · Carpenter, Byculla</span></p></article>
+      <article class="tcard"><p class="tcard__quote">A one-stop shop for all kitchen fittings. Never had a single quality issue.</p><p class="tcard__who">Shabbir<span class="tcard__role"> · Modular Kitchen Maker, Dongri</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Friendly staff who actually guide you. Got exactly the right wardrobe accessories.</p><p class="tcard__who">Aamir<span class="tcard__role"> · Homeowner, Sion</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Premium hardware that elevates the whole interior. My go-to supplier in Mumbai.</p><p class="tcard__who">Hatim<span class="tcard__role"> · Interior Designer, Colaba</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Bulk pricing is very competitive and the stock is always ready. Smooth experience.</p><p class="tcard__who">Idris<span class="tcard__role"> · Builder, Mumbra</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Wide variety of locks and channels — quality you can genuinely trust.</p><p class="tcard__who">Quresh<span class="tcard__role"> · Carpenter, Null Bazar</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Lovely experience. They helped me choose handles that match my decor perfectly.</p><p class="tcard__who">Fatema<span class="tcard__role"> · Homeowner, Bandra</span></p></article>
+      <article class="tcard"><p class="tcard__quote">Consistent quality and great support. MSquare makes my work so much easier.</p><p class="tcard__who">Zainab<span class="tcard__role"> · Interior Designer, Andheri</span></p></article>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="section__eyebrow">Get In Touch</p>
+    <h2 class="section__title">Contact</h2>
+    <p class="section__text">Visit our Mumbai showroom or reach out to our co-founders directly — we're happy to help with product enquiries, pricing and bulk orders.</p>
+
+    <div class="contact__grid">
+      <div class="contact__owners">
+        <article class="owner">
+          <h3 class="owner__name">Mehlam Ratlam</h3>
+          <p class="owner__role">Co-Founder</p>
+          <p class="owner__phone">+91 84540 06602</p>
+          <div class="owner__actions">
+            <a class="btn btn--wa" target="_blank" rel="noopener" href="https://wa.me/918454006602?text=Hi%20MSquare%2C%20I%27d%20like%20to%20enquire%20about%20your%20products.">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8z"/></svg>WhatsApp</a>
+            <a class="btn btn--call" href="tel:+918454006602">Call</a>
+          </div>
+        </article>
+        <article class="owner">
+          <h3 class="owner__name">Mustafa Indore</h3>
+          <p class="owner__role">Co-Founder</p>
+          <p class="owner__phone">+91 91375 98521</p>
+          <div class="owner__actions">
+            <a class="btn btn--wa" target="_blank" rel="noopener" href="https://wa.me/919137598521?text=Hi%20MSquare%2C%20I%27d%20like%20to%20enquire%20about%20your%20products.">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8z"/></svg>WhatsApp</a>
+            <a class="btn btn--call" href="tel:+919137598521">Call</a>
+          </div>
+        </article>
+      </div>
+
+      <ul class="contact__info">
+        <li>
+          <span class="contact__label">Email</span>
+          <a href="mailto:Msquarehardwares@gmail.com">Msquarehardwares@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact__label">Showroom</span>
+          <a href="https://maps.google.com/?q=Al-Nasr%20Tower%2C%20S106%2C%20Bhendi%20Bazar%2C%20Mumbai%20400003" target="_blank" rel="noopener">Al-Nasr Tower, S106, Second Floor,<br />Bhendi Bazar, Mumbai 400003</a>
+        </li>
+        <li>
+          <span class="contact__label">Instagram</span>
+          <a href="https://instagram.com/msquarehardwares" target="_blank" rel="noopener">@msquarehardwares</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p class="footer__brand">M<span class="accent">Square</span> Hardwares</p>
+    <p class="footer__tag">Precision In Every Detail.</p>
+    <p class="footer__line">Premium Furniture Hardware &amp; Interior Solutions · Al-Nasr Tower, S106, Second Floor, Bhendi Bazar, Mumbai 400003</p>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="tel:+918454006602">+91 84540 06602</a>
+      <a href="tel:+919137598521">+91 91375 98521</a>
+      <a href="mailto:Msquarehardwares@gmail.com">Msquarehardwares@gmail.com</a>
+      <a href="https://instagram.com/msquarehardwares" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <p class="footer__copy">© <span id="footYear">2026</span> MSquare Hardwares. All rights reserved.</p>
+  </footer>
+
+  <!-- ===================== ENQUIRY MODAL (choose co-founder) ===================== -->
+  <div class="enq" id="enqModal" hidden>
+    <div class="enq__backdrop" data-enq-close></div>
+    <div class="enq__box" role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+      <button class="enq__x" type="button" data-enq-close aria-label="Close">&times;</button>
+      <p class="enq__eyebrow">Enquire on WhatsApp</p>
+      <h3 class="enq__title" id="enqTitle">Chat with a co-founder</h3>
+      <p class="enq__product" id="enqProduct"></p>
+      <div class="enq__opts">
+        <a class="enq__opt" id="enqA" target="_blank" rel="noopener" data-enq-go>
+          <span class="enq__optname">Mehlam Ratlam</span>
+          <span class="enq__optnum">+91 84540 06602</span>
+        </a>
+        <a class="enq__opt" id="enqB" target="_blank" rel="noopener" data-enq-go>
+          <span class="enq__optname">Mustafa Indore</span>
+          <span class="enq__optnum">+91 91375 98521</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== GSAP ===================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const logo    = document.getElementById('heroLogo');
+      const brand   = document.getElementById('heroBrand');
+      const tagline = document.getElementById('heroTagline');
+      const line    = document.getElementById('heroLine');
+      const scroll  = document.getElementById('heroScroll');
+      const navbar  = document.getElementById('navbar');
+
+      if (reduceMotion) {
+        gsap.set([logo, brand, tagline, scroll], { opacity: 1, y: 0 });
+        gsap.set(line, { scaleX: 1 });
+        return; // navbar stays hidden on the hero; revealed on scroll below
+      }
+
+      // Start logo slightly lower & centered, then lift it into place
+      gsap.set(logo, { y: 40, scale: 0.92 });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      // 1. Logo fades in at center
+      tl.to(logo, { opacity: 1, scale: 1, duration: 1.1 })
+        // brief pause
+        .to({}, { duration: 0.45 })
+        // 2. Logo smoothly animates upward to final position
+        .to(logo, { y: 0, duration: 1.0, ease: 'power2.inOut' })
+        // 3. Brand name fades in bold below the logo
+        .to(brand, { opacity: 1, y: 0, duration: 0.9 }, '-=0.35')
+        // initialize brand from below
+        .from(brand, { y: 26, duration: 0.9, ease: 'power3.out' }, '<')
+        // 4. Tagline slides up softly
+        .to(tagline, { opacity: 1, duration: 0.8 }, '-=0.4')
+        .from(tagline, { y: 22, duration: 0.8, ease: 'power3.out' }, '<')
+        // 5. Gold line draws itself
+        .to(line, { scaleX: 1, duration: 0.9, ease: 'power2.inOut' }, '-=0.3')
+        // 6. Scroll cue fades in
+        .to(scroll, { opacity: 1, duration: 0.7 }, '-=0.2');
+      // Navbar is NOT part of the hero — it only appears once you scroll past it.
+    });
+
+    // Reveal the navbar only after the user scrolls past the hero (first page stays clean)
+    (function () {
+      const navbar = document.getElementById('navbar');
+      let shown = false;
+      function onScroll() {
+        const trigger = window.innerHeight * 0.7;
+        const past = window.scrollY > trigger;
+        if (past && !shown) {
+          shown = true;
+          gsap.to(navbar, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+        } else if (!past && shown) {
+          shown = false;
+          gsap.to(navbar, { opacity: 0, y: '-100%', duration: 0.4, ease: 'power2.in' });
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function () {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* ============ INTERACTIVE LAYERS (all devices) ============ */
+    (function () {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+      // Unified pointer position (mouse hover, touch drag, or pen)
+      let px = window.innerWidth / 2, py = window.innerHeight / 2, pointerActive = false;
+      window.addEventListener('pointermove', function (e) {
+        px = e.clientX; py = e.clientY; pointerActive = true;
+      }, { passive: true });
+
+      // iOS/iPadOS need explicit permission for device-motion — ask on first tap
+      function enableMotion() {
+        try {
+          if (window.DeviceOrientationEvent &&
+              typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission().catch(function () {});
+          }
+        } catch (e) {}
+      }
+      window.addEventListener('pointerdown', enableMotion, { once: true });
+
+      /* ---- 1. Living brass logo: idle sway + tilt to pointer / device ---- */
+      const logoInner = document.getElementById('heroLogoInner');
+      if (logoInner && !reduce) {
+        const MAX = 18;
+        let tx = 0, ty = 0, cx = 0, cy = 0, t = 0, gyro = false;
+        // pointer-driven tilt (works for mouse move AND touch drag)
+        window.addEventListener('pointermove', function (e) {
+          if (gyro) return;
+          tx = ((e.clientX / window.innerWidth) - 0.5) * MAX * 2;
+          ty = -((e.clientY / window.innerHeight) - 0.5) * MAX * 2;
+        }, { passive: true });
+        // gyroscope tilt (phones + tablets)
+        window.addEventListener('deviceorientation', function (e) {
+          if (e.gamma == null || e.beta == null) return;
+          gyro = true;
+          tx = clamp(e.gamma, -MAX, MAX) * 1.5;
+          ty = clamp(e.beta - 45, -MAX, MAX) * -1.1;
+        }, { passive: true });
+        (function render() {
+          t += 0.016;
+          // subtle, always-on idle sway so it feels alive with no input
+          const idleX = Math.sin(t * 0.7) * 3.4;
+          const idleY = Math.cos(t * 0.55) * 2.6;
+          cx += ((tx + idleX) - cx) * 0.07;
+          cy += ((ty + idleY) - cy) * 0.07;
+          logoInner.style.transform =
+            'rotateX(' + cy.toFixed(2) + 'deg) rotateY(' + cx.toFixed(2) + 'deg)';
+          requestAnimationFrame(render);
+        })();
+      }
+
+      /* ---- 2. Scroll choreography (GSAP ScrollTrigger) ---- */
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        if (!reduce) {
+          gsap.to('.hero__inner', {
+            y: -60, scale: 0.92, opacity: 0.15, ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+          });
+        }
+        document.querySelectorAll('.section').forEach(function (sec) {
+          const items = sec.querySelectorAll('.section__eyebrow, .section__title, .section__text');
+          gsap.set(items, { opacity: 0, y: 36 });
+          ScrollTrigger.create({
+            trigger: sec, start: 'top 80%',
+            onEnter: function () {
+              gsap.to(items, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12, overwrite: true });
+            }
+          });
+        });
+      }
+    })();
+  </script>
+
+  <!-- ===================== PRODUCT CATALOGUE (vanilla JS) ===================== -->
+  <script>
+    (function () {
+      const stage   = document.getElementById('catStage');
+      if (!stage) return;
+      const crumbsEl = document.getElementById('catCrumbs');
+      const backBtn  = document.getElementById('catBack');
+      const searchEl = document.getElementById('catSearch');
+
+      // ---- categories & subcategories ----
+      const CATS = [
+        { id: 'furniture', name: 'Furniture Hardware & Modular Kitchen Fittings', subs: [
+          'Hinges','Drawer Channels & Runners','Handles & Knobs','Lift Systems','Soft Close Mechanisms',
+          'Cabinet Fittings','Wardrobe Accessories','Glass Fittings','Kitchen Baskets','Aluminium Profiles'] },
+        { id: 'locks', name: 'Locks', subs: [
+          'Mortise Locks','Padlocks','Digital Smart Locks','Door Closers','Deadbolts',
+          'Rim Locks','Drawer Locks','Glass Door Locks','Sliding Door Locks','Locker Locks'] }
+      ];
+
+      // ---- product names per subcategory (~10 each → ~200 total) ----
+      const NAMES = {
+        'Hinges': ['Soft-Close Concealed Hinge','Auto-Close Clip-On Hinge','165° Wide-Angle Hinge','Glass Door Hinge','Zero-Protrusion Hinge','Inset Cabinet Hinge','Half-Overlay Hinge','Full-Overlay Hinge','Pie-Cut Corner Hinge','Hydraulic Pivot Hinge'],
+        'Drawer Channels & Runners': ['Telescopic Ball-Bearing Channel','Soft-Close Drawer Runner','Under-Mount Slide','Push-to-Open Channel','3-Fold Full Extension Slide','Heavy-Duty 45kg Runner','Single-Extension Channel','Synchronised Runner Set','Concealed Soft-Close Runner','Roller Drawer Channel'],
+        'Handles & Knobs': ['SS Cabinet Handle','Brass Cabinet Knob','Profile Gola Handle','Recessed Edge Pull','T-Bar Handle','Matte Black Bar Handle','Antique Drawer Pull','Leather-Wrapped Handle','Shell Cup Handle','Hexagon Knob'],
+        'Lift Systems': ['Gas Lift Strut','Flap-Up Stay','Bi-Fold Lift Mechanism','Parallel Lift System','Stay Lift Hinge','Top-Hinged Lift','Soft-Close Lift Set','Pneumatic Cabinet Lift','Swing-Up Fitting','Overhead Lift Arm'],
+        'Soft Close Mechanisms': ['Door Soft-Close Damper','Drawer Damper','Adapter Soft-Close Kit','Hinge Damper Clip','In-Line Buffer','Linear Damper','Push-Latch Damper','Rotary Damper','Cushion Stop Buffer','Universal Damper Set'],
+        'Cabinet Fittings': ['Minifix Cam Connector','Shelf Support Pin','Adjustable Leg Leveller','Cabinet Hanging Bracket','Back-Panel Clip','Plinth Clip Set','Cam Dowel','Screw-In Foot','Suspension Bracket','Connector Bolt'],
+        'Wardrobe Accessories': ['Pull-Out Trouser Rack','Soft-Close Valet Rod','Tie & Belt Holder','Wardrobe Lift Pull-Down','Pull-Out Mirror','Sliding Shoe Rack','Wardrobe Tube & Bracket','Pull-Out Basket Drawer','Jewellery Insert Tray','Folding Pants Hanger'],
+        'Glass Fittings': ['Glass Shelf Bracket','Glass Door Pivot','Standoff Glass Holder','Glass Clamp Connector','Spider Fitting','90° Glass Hinge','Patch Fitting Set','Glass Knob','Sliding Glass Track','Glass Edge Profile'],
+        'Kitchen Baskets': ['Cutlery Basket Tray','Plate & Bowl Basket','Pull-Out Pantry Basket','Thali Basket','Bottle Pull-Out','Corner Carousel Basket','Detergent Holder Basket','Cup & Saucer Basket','Multipurpose Wire Basket','Tall Unit Basket'],
+        'Aluminium Profiles': ['G-Profile Handle','J-Profile Gola','C-Channel Profile','LED Recess Profile','Shutter Frame Profile','Edge Banding Profile','Skirting Profile','Glass Shutter Profile','Wardrobe Track Profile','Corner Joint Profile'],
+        'Mortise Locks': ['Mortise Lock Body','Mortise Handle Set','Baby Latch Mortise','5-Lever Mortise Lock','Cylindrical Mortise Lock','Euro-Profile Mortise','Heavy-Duty Mortise Lock','Bathroom Mortise Set','Privacy Mortise Lock','Multipoint Mortise Lock'],
+        'Padlocks': ['Brass Padlock 50mm','Long-Shackle Padlock','Hardened Steel Padlock','Combination Padlock','Weatherproof Padlock','Disc Detainer Padlock','Shutter Padlock','Mini Travel Padlock','Anti-Cut Padlock','Keyed-Alike Padlock'],
+        'Digital Smart Locks': ['Biometric Door Lock','Keypad Smart Lock','RFID Card Lock','Fingerprint Padlock','WiFi Smart Deadbolt','Bluetooth Cabinet Lock','Face-Recognition Lock','PIN-Code Glass Lock','Smart Rim Lock','App-Controlled Latch'],
+        'Door Closers': ['Hydraulic Door Closer','Surface Door Closer','Concealed Door Closer','Floor Spring Closer','Hold-Open Closer','Adjustable Speed Closer','Heavy-Duty Door Closer','Slim-Line Closer','Cam-Action Closer','Glass Door Closer'],
+        'Deadbolts': ['Single-Cylinder Deadbolt','Double-Cylinder Deadbolt','Vertical Deadbolt','Tubular Deadbolt','Thumb-Turn Deadbolt','Keyed Deadbolt','Smart Deadbolt','Jimmy-Proof Deadbolt','Mortise Deadbolt','Long-Throw Deadbolt'],
+        'Rim Locks': ['Night Latch Rim Lock','Rim Cylinder Lock','Auto-Deadlocking Rim','Double-Locking Rim','Brass Rim Lock','Heavy-Duty Rim Latch','Surface Rim Lock','Cottage Rim Lock','Sliding Rim Latch','Security Rim Lock'],
+        'Drawer Locks': ['Cam Drawer Lock','Push-Button Drawer Lock','Central Locking System','Pedestal Drawer Lock','Sliding Drawer Lock','Plunger Lock','Furniture Cam Lock','Desk Drawer Lock','Multi-Drawer Gang Lock','Hidden Drawer Lock'],
+        'Glass Door Locks': ['Glass-to-Glass Lock','Patch Lock','Showcase Sliding Lock','Centre Glass Door Lock','Brass Glass Door Lock','Display Cabinet Lock','Glass Swing Door Lock','Keyed Glass Lock','Round Glass Door Lock','Office Glass Door Lock'],
+        'Sliding Door Locks': ['Hook Bolt Sliding Lock','Sliding Wardrobe Lock','Patio Door Lock','Mortise Sliding Lock','Crescent Sliding Lock','Aluminium Sliding Lock','Double-Hook Sliding Lock','Flush Sliding Lock','Touch Sliding Lock','Security Sliding Bolt'],
+        'Locker Locks': ['Cam Locker Lock','Combination Locker Lock','Coin-Return Locker Lock','RFID Locker Lock','Padlock-Hasp Locker','Master-Keyed Locker Lock','Digital Locker Lock','Gym Locker Lock','Vertical Locker Lock','Push-Lock Locker']
+      };
+
+      // ---- plausible spec generator ----
+      const HW_MAT  = ['Stainless steel','Zinc alloy','Cold-rolled steel','Aluminium','Nickel-plated steel'];
+      const HW_FIN  = ['satin nickel','matte black','antique brass','chrome','brushed SS'];
+      const HW_FEAT = ['precision-engineered','heavy-duty load rated','corrosion resistant','smooth operation','easy installation'];
+      const LK_MAT  = ['Solid brass','Hardened steel','Zinc alloy','Stainless steel'];
+      const LK_GRADE= ['BIS certified','Grade-1 rated','corrosion resistant','dual-tone finish','precision build'];
+      const LK_FEAT = ['anti-theft','anti-drill','double-action','weatherproof','pick-resistant'];
+      const pick = (arr, i) => arr[((i % arr.length) + arr.length) % arr.length];
+      function specFor(catId, sub, i) {
+        if (catId === 'locks') return pick(LK_MAT, i) + ' body · ' + pick(LK_GRADE, i + sub.length) + ' · ' + pick(LK_FEAT, i + 1);
+        return pick(HW_MAT, i) + ' · ' + pick(HW_FIN, i + sub.length) + ' finish · ' + pick(HW_FEAT, i + 1);
+      }
+
+      // ---- build data + flat index for search ----
+      const DATA = CATS.map(c => ({
+        id: c.id, name: c.name,
+        subs: c.subs.map(sn => ({
+          name: sn,
+          products: (NAMES[sn] || []).map((nm, i) => ({ name: nm, spec: specFor(c.id, sn, i) }))
+        }))
+      }));
+      const ALL = [];
+      DATA.forEach(c => c.subs.forEach(s => s.products.forEach(p => ALL.push({ name: p.name, spec: p.spec }))));
+
+      // ---- helpers ----
+      const waSvg ='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.8 4.7-10.5 10.5-10.5S26.5 9.7 26.5 15.5 21.8 25.8 16 25.8zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5z"/></svg>';
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+      function productCard(p) {
+        return '<article class="pcard">'
+          + '<div class="pcard__body">'
+          + '<h4 class="pcard__name">' + esc(p.name) + '</h4>'
+          + '<p class="pcard__spec">' + esc(p.spec) + '</p>'
+          + '<button type="button" class="pcard__wa" data-name="' + esc(p.name) + '">' + waSvg + 'Enquire on WhatsApp</button>'
+          + '</div></article>';
+      }
+
+      // ---- enquiry modal: choose which co-founder to WhatsApp ----
+      const OWNERS = { a: '918454006602', b: '919137598521' };
+      const modal     = document.getElementById('enqModal');
+      const enqProduct = document.getElementById('enqProduct');
+      const enqA = document.getElementById('enqA');
+      const enqB = document.getElementById('enqB');
+      function waTo(num, name) {
+        const msg = name ? 'Hi MSquare, I would like to enquire about: ' + name : 'Hi MSquare, I would like to enquire about your products.';
+        return 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+      }
+      const enqEyebrow = modal.querySelector('.enq__eyebrow');
+      const enqTitle   = document.getElementById('enqTitle');
+      function setOpt(el, mode, num, name) { el.href = (mode === 'call') ? ('tel:+' + num) : waTo(num, name); }
+      function openChooser(mode, name) {
+        if (mode === 'call') {
+          modal.classList.add('enq--call');
+          enqEyebrow.textContent = 'Call Us';
+          enqTitle.textContent = 'Call a co-founder';
+          enqProduct.textContent = '';
+        } else {
+          modal.classList.remove('enq--call');
+          enqEyebrow.textContent = 'Enquire on WhatsApp';
+          enqTitle.textContent = 'Chat with a co-founder';
+          enqProduct.textContent = name ? '“' + name + '”' : '';
+        }
+        setOpt(enqA, mode, OWNERS.a, name);
+        setOpt(enqB, mode, OWNERS.b, name);
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => modal.classList.add('open'));
+      }
+      function closeEnq() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => { modal.hidden = true; }, 240);
+      }
+      modal.addEventListener('click', e => {
+        if (e.target.hasAttribute('data-enq-close')) closeEnq();
+        if (e.target.closest('[data-enq-go]')) closeEnq();
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeEnq(); });
+      // [data-enquire] opens the WhatsApp chooser, [data-call] opens the Call chooser
+      document.addEventListener('click', e => {
+        const wa = e.target.closest('[data-enquire]');
+        if (wa) { e.preventDefault(); openChooser('wa', wa.getAttribute('data-enquire') || ''); return; }
+        const call = e.target.closest('[data-call]');
+        if (call) { e.preventDefault(); openChooser('call'); }
+      });
+
+      // ---- state + render ----
+      const state = { level: 0, ci: null, si: null, q: '' };
+
+      function render() {
+        let html = '';
+        if (state.q) {
+          const q = state.q.toLowerCase();
+          const res = ALL.filter(p => p.name.toLowerCase().indexOf(q) !== -1);
+          html = '<p class="cat__resulthint">' + res.length + ' result' + (res.length !== 1 ? 's' : '') + ' for &ldquo;' + esc(state.q) + '&rdquo;</p>';
+          html += res.length ? '<div class="cat__products">' + res.map(productCard).join('') + '</div>'
+                             : '<div class="cat__empty">No products match your search.</div>';
+        } else if (state.level === 0) {
+          html = '<div class="cat__cats">' + DATA.map((c, i) => {
+            const n = c.subs.reduce((a, s) => a + s.products.length, 0);
+            return '<button class="bigcard" data-ci="' + i + '">'
+              + '<span class="bigcard__index">0' + (i + 1) + '</span>'
+              + '<span class="bigcard__title">' + esc(c.name) + '</span>'
+              + '<span class="bigcard__meta">' + c.subs.length + ' Categories · ' + n + ' Products</span>'
+              + '<span class="bigcard__go">Explore</span></button>';
+          }).join('') + '</div>';
+        } else if (state.level === 1) {
+          const c = DATA[state.ci];
+          html = '<div class="cat__grid">' + c.subs.map((s, i) =>
+            '<button class="subtile" data-si="' + i + '"><span class="subtile__title">' + esc(s.name) + '</span>'
+            + '<span class="subtile__meta">' + s.products.length + ' Products</span></button>'
+          ).join('') + '</div>';
+        } else {
+          const s = DATA[state.ci].subs[state.si];
+          html = '<div class="cat__products">' + s.products.map(productCard).join('') + '</div>';
+        }
+        stage.innerHTML = html;
+        // re-trigger fade/slide animation
+        stage.classList.remove('enter'); void stage.offsetWidth; stage.classList.add('enter');
+        renderCrumbs();
+        backBtn.hidden = (state.level === 0 && !state.q);
+      }
+
+      function renderCrumbs() {
+        let h;
+        if (state.q) {
+          h = '<button data-go="home">Home</button><span class="sep">/</span><span class="current">Search results</span>';
+        } else if (state.level === 0) {
+          h = '<span class="current">Home</span>';
+        } else {
+          const c = DATA[state.ci];
+          h = '<button data-go="home">Home</button>';
+          if (state.level === 1) {
+            h += '<span class="sep">/</span><span class="current">' + esc(c.name) + '</span>';
+          } else {
+            h += '<span class="sep">/</span><button data-go="cat">' + esc(c.name) + '</button>';
+            h += '<span class="sep">/</span><span class="current">' + esc(c.subs[state.si].name) + '</span>';
+          }
+        }
+        crumbsEl.innerHTML = h;
+      }
+
+      function scrollToTop() {
+        const top = document.getElementById('products');
+        if (!top) return;
+        const y = top.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+
+      // ---- events ----
+      stage.addEventListener('click', e => {
+        const wa = e.target.closest('.pcard__wa');
+        if (wa) { openChooser('wa', wa.dataset.name); return; }
+        const big = e.target.closest('.bigcard');
+        if (big) { state.level = 1; state.ci = +big.dataset.ci; state.si = null; render(); scrollToTop(); return; }
+        const tile = e.target.closest('.subtile');
+        if (tile) { state.level = 2; state.si = +tile.dataset.si; render(); scrollToTop(); return; }
+      });
+      crumbsEl.addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.go === 'home') { state.level = 0; state.ci = null; state.si = null; state.q = ''; searchEl.value = ''; }
+        else if (b.dataset.go === 'cat') { state.level = 1; state.si = null; state.q = ''; searchEl.value = ''; }
+        render(); scrollToTop();
+      });
+      backBtn.addEventListener('click', () => {
+        if (state.q) { state.q = ''; searchEl.value = ''; render(); return; }
+        if (state.level === 2) { state.level = 1; state.si = null; }
+        else if (state.level === 1) { state.level = 0; state.ci = null; }
+        render(); scrollToTop();
+      });
+      let timer;
+      searchEl.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { state.q = searchEl.value.trim(); render(); }, 120);
+      });
+
+      const fy = document.getElementById('footYear');
+      if (fy) fy.textContent = new Date().getFullYear();
+
+      render();
+    })();
+  </script>
+</body>
+</html>
