@@ -673,6 +673,37 @@
       <article class="card"><h3 class="card__title">Homeowners</h3><p class="card__text">Friendly guidance to find exactly the right fitting for your home.</p></article>
     </div>
   </section>
+  <!-- ===================== BRANDS AVAILABLE AT MSQUARE ===================== -->
+<section class="section" id="brands">
+  <p class="section__eyebrow">Brands</p>
+
+  <h2 class="section__title">
+    Brands Available at MSquare
+  </h2>
+
+  <p class="section__text">
+    We stock genuine products from trusted hardware, fittings and lock manufacturers.
+  </p>
+
+  <div class="brand-grid">
+    <span>A2 Sweden</span>
+    <span>Nexel</span>
+    <span>Godrej</span>
+    <span>Dorset</span>
+    <span>Ozone</span>
+    <span>Europa</span>
+    <span>Yale</span>
+    <span>Dios</span>
+    <span>Casa</span>
+    <span>Häfele</span>
+    <span>Hettich</span>
+    <span>RAB</span>
+    <span>Ebco</span>
+    <span>Hepo</span>
+    <span>Archis</span>
+    <span>Sparkle</span>
+  </div>
+</section>
 
   <!-- ===================== HOW IT WORKS ===================== -->
   <section class="section" id="process">
@@ -947,7 +978,23 @@
       }
     })();
   </script>
+.brand-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:14px;
+  margin-top:24px;
+  width:100%;
+  max-width:900px;
+}
 
+.brand-grid span{
+  padding:14px 10px;
+  text-align:center;
+  border:1px solid rgba(139,105,20,.2);
+  border-radius:12px;
+  font-weight:600;
+  background:rgba(139,105,20,.05);
+}
   <!-- ===================== PRODUCT CATALOGUE (vanilla JS) ===================== -->
   <script>
     (function () {
