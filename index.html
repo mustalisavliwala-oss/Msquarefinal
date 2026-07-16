@@ -557,6 +557,70 @@
     .band { padding: 46px 6vw; }
     .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 24px 14px; }
   }
+  /* ---------------- BRANDS ---------------- */
+  .brands {
+    position: relative; z-index: 1;
+    padding: 90px 0 80px;
+    border-top: 1px solid rgba(139,105,20,0.15);
+    overflow: hidden;
+  }
+  .brands__head {
+    text-align: center;
+    padding: 0 6vw;
+    margin-bottom: 48px;
+  }
+  .brands__track-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .brands__track-wrap::before,
+  .brands__track-wrap::after {
+    content: "";
+    position: absolute; top: 0; bottom: 0; z-index: 2; width: 80px;
+    pointer-events: none;
+  }
+  .brands__track-wrap::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--bg), transparent);
+  }
+  .brands__track-wrap::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--bg), transparent);
+  }
+  .brands__track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: brandScroll 30s linear infinite;
+  }
+  .brands__track:hover { animation-play-state: paused; }
+  @keyframes brandScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .brand-pill {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border: 1px solid rgba(139,105,20,0.25);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.5);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: border-color .3s ease, background .3s ease, color .3s ease;
+    cursor: default;
+  }
+  .brand-pill:hover {
+    border-color: var(--gold);
+    background: rgba(196,163,90,0.12);
+    color: var(--gold);
+  }
 </style>
 </head>
 <body>
