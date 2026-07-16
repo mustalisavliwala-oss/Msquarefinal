@@ -560,6 +560,77 @@
   /* ---------------- BRANDS ---------------- */
   .brands {
     position: relative; z-index: 1;
+    padding: 90px 6vw 80px;
+    border-top: 1px solid rgba(139,105,20,0.15);
+  }
+  .brands__head {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+  .brands__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .bcard {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 28px 20px 22px;
+    min-height: 130px;
+    border: 1px solid rgba(139,105,20,0.2);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.45);
+    cursor: default;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+  }
+  .bcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 44px -20px rgba(61,43,14,0.35);
+    border-color: var(--gold);
+  }
+  .bcard__letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 5.5rem;
+    line-height: 1;
+    color: rgba(196,163,90,0.18);
+    pointer-events: none;
+    user-select: none;
+    transition: color .35s ease;
+  }
+  .bcard:hover .bcard__letter {
+    color: rgba(139,105,20,0.22);
+  }
+  .bcard__name {
+    position: relative;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--text);
+    letter-spacing: 0.4px;
+    text-align: center;
+    transition: color .35s ease;
+  }
+  .bcard:hover .bcard__name { color: var(--gold); }
+  @media (max-width: 700px) {
+    .brands__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .bcard { min-height: 110px; padding: 22px 14px 18px; }
+    .bcard__letter { font-size: 4rem; }
+    .bcard__name { font-size: 1rem; }
+  }
+  /* ---------------- BRANDS ---------------- */
+  .brands {
+    position: relative; z-index: 1;
     padding: 90px 0 80px;
     border-top: 1px solid rgba(139,105,20,0.15);
     overflow: hidden;
