@@ -603,7 +603,8 @@
     min-height: 130px;
     object-fit: contain;
     padding: 20px;
-    mix-blend-mode: multiply;
+    mix-blend-mode: screen;
+    filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.7);
   }
   .bcard:hover .bcard__name { color: var(--gold); }
   @media (max-width: 700px) {
