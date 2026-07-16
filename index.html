@@ -976,13 +976,72 @@
       const searchEl = document.getElementById('catSearch');
 
       // ---- categories & subcategories ----
-      const CATS = [
-  { id: 'locks', name: 'Locks' },
-  { id: 'architectural-hardware', name: 'Architectural Hardwares' },
-  { id: 'modular-kitchen', name: 'Modular Kitchen Fittings' },
-  { id: 'bathroom', name: 'Bathroom Fittings & Accessories' }
-];
-      // ---- product names per subcategory (~10 each → ~200 total) ----
+const CATS = [
+  {
+    id: 'locks',
+    name: 'Locks',
+    subs: [
+      'Mortise Locks',
+      'Padlocks',
+      'Digital Smart Locks',
+      'Door Closers',
+      'Deadbolts',
+      'Rim Locks',
+      'Drawer Locks',
+      'Glass Door Locks',
+      'Sliding Door Locks',
+      'Locker Locks'
+    ]
+  },
+  {
+    id: 'architectural-hardware',
+    name: 'Architectural Hardwares',
+    subs: [
+      'Door Handles',
+      'Pull Handles',
+      'Door Stoppers',
+      'Tower Bolts',
+      'Aldrops',
+      'Door Closers',
+      'Floor Springs',
+      'Glass Hardware',
+      'Sliding Systems',
+      'Patch Fittings'
+    ]
+  },
+  {
+    id: 'modular-kitchen',
+    name: 'Modular Kitchen Fittings',
+    subs: [
+      'Hinges',
+      'Drawer Channels & Runners',
+      'Handles & Knobs',
+      'Lift Systems',
+      'Soft Close Mechanisms',
+      'Cabinet Fittings',
+      'Wardrobe Accessories',
+      'Kitchen Baskets',
+      'Aluminium Profiles',
+      'Tall Units'
+    ]
+  },
+  {
+    id: 'bathroom',
+    name: 'Bathroom Fittings & Accessories',
+    subs: [
+      'Towel Rods',
+      'Soap Dispensers',
+      'Towel Rings',
+      'Robe Hooks',
+      'Corner Shelves',
+      'Paper Holders',
+      'Bathroom Mirrors',
+      'Glass Shelves',
+      'Health Faucets',
+      'Shower Accessories'
+    ]
+  }
+];      // ---- product names per subcategory (~10 each → ~200 total) ----
       const NAMES = 
         'Hinges': ['Soft-Close Concealed Hinge','Auto-Close Clip-On Hinge','165° Wide-Angle Hinge','Glass Door Hinge','Zero-Protrusion Hinge','Inset Cabinet Hinge','Half-Overlay Hinge','Full-Overlay Hinge','Pie-Cut Corner Hinge','Hydraulic Pivot Hinge'],
         'Drawer Channels & Runners': ['Telescopic Ball-Bearing Channel','Soft-Close Drawer Runner','Under-Mount Slide','Push-to-Open Channel','3-Fold Full Extension Slide','Heavy-Duty 45kg Runner','Single-Extension Channel','Synchronised Runner Set','Concealed Soft-Close Runner','Roller Drawer Channel'],
