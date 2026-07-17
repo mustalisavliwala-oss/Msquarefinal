@@ -574,20 +574,29 @@
     max-width: 1080px;
     margin: 0 auto;
   }
-  .bcard {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    min-height: 130px;
-    border: 1px solid rgba(139,105,20,0.2);
-    border-radius: 16px;
-    background: var(--bg);
-    cursor: default;
-    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
-  }
+  .bcard{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  min-height:120px;
+  padding:10px;
+}
+
+.bcard:hover{
+  transform:scale(1.05);
+  box-shadow:none;
+}
+
+.bcard__logo{
+  max-width:160px;
+  max-height:90px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
   .bcard:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 44px -20px rgba(61,43,14,0.35);
