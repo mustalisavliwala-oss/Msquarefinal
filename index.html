@@ -1370,6 +1370,38 @@ const CATS = [
         const y = top.getBoundingClientRect().top + window.scrollY - 70;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
+     // ── BRAND ANIMATIONS ──
+
+  // 1. Stagger reveal on scroll (all devices)
+  const bcards = document.querySelectorAll('.bcard');
+  const brandObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('in-view');
+        }, Array.from(bcards).indexOf(entry.target) * 80);
+        brandObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  bcards.forEach(card => brandObserver.observe(card));
+
+  // 2. Magnetic pull (desktop only)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    bcards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / rect.width * 12;
+        const dy = (e.clientY - cy) / rect.height * 12;
+        card.style.transform = `translateY(-4px) translate(${dx}px, ${dy}px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
 
       // ---- events ----
       stage.addEventListener('click', e => {
